@@ -14,6 +14,9 @@
             <ul class="nav navbar-nav navbar-left">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>XML+</span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{route('users.index')}}">Importar</a></li>
+                    </ul>
                 </li>
             </ul>
 
