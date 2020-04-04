@@ -69,7 +69,7 @@
                              <span>Olá  {{ Auth::user()->name }}</span> <i class="icon-submenu lnr lnr-chevron-down"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{route('users.profile', Auth::user()->id)}}"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+                            <li><a href="{{route('password.reset', Auth::user())}}"><i class="lnr lnr-user"></i> <span>Alterar Senha</span></a></li>
                             <li><a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                               document.getElementById('logout-form').submit();">
