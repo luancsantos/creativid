@@ -9,11 +9,6 @@
 		<!-- NAVBAR -->
 		@include('layouts.nav')
 		<!-- END NAVBAR -->
-		<!-- LEFT SIDEBAR -->
-		<div id="sidebar-nav" class="sidebar">
-                @include('layouts.sidebar')
-		</div>
-		<!-- END LEFT SIDEBAR -->
 		<!-- MAIN -->
 		<div class="main">
 			<!-- MAIN CONTENT -->
