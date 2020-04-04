@@ -6,55 +6,62 @@
             <div class="navbar-btn">
                 <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
             </div>
-            <ul class="nav navbar-nav navbar-left">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>Dashboard</span></a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-left">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>XML+</span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{route('users.index')}}">Importar</a></li>
-                    </ul>
-                </li>
-            </ul>
+            @if(Auth::user()->id == 1)
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>Dashboard</span></a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>XML+</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{route('users.index')}}">Importar</a></li>
+                        </ul>
+                    </li>
+                </ul>
 
-            <ul class="nav navbar-nav navbar-left">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>Prometheus</span></a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-left">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>Indicadores</span></a>
-                </li>
-            </ul>
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>Prometheus</span></a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>Indicadores</span></a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="dropdown">
+                        <a href="{{route('tickets.index')}}" class="dropdown-toggle" data-toggle="dropdown"><span>Chamados</span></a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>Empréstimos</span></a>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-left">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>Configurações</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{route('users.index')}}">Usuários</a></li>
+                            <li><a href="{{route('clients.index')}}">Clientes</a></li>
+                            <li><a href="{{route('types.index')}}">Tipos de Chamados</a></li>
+                            <li><a href="{{route('status.index')}}">Status</a></li>
+                            <li><a href="{{route('departments.index')}}">Departamento</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            @else
             <ul class="nav navbar-nav navbar-left">
                 <li class="dropdown">
                     <a href="{{route('tickets.index')}}" class="dropdown-toggle" data-toggle="dropdown"><span>Chamados</span></a>
                 </li>
             </ul>
-
-            <ul class="nav navbar-nav navbar-left">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>Empréstimos</span></a>
-                </li>
-            </ul>
-
-            <ul class="nav navbar-nav navbar-left">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>Configurações</span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="{{route('users.index')}}">Usuários</a></li>
-                        <li><a href="{{route('clients.index')}}">Clientes</a></li>
-                        <li><a href="{{route('types.index')}}">Tipos de Chamados</a></li>
-                        <li><a href="{{route('status.index')}}">Status</a></li>
-                        <li><a href="{{route('departments.index')}}">Departamento</a></li>
-                    </ul>
-                </li>
-            </ul>
-
+            @endif
             <div id="navbar-menu">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
