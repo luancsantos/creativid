@@ -24,6 +24,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 
 Route::get('/users', 'UsersController@index')->name('users.index');
+Route::get('/users/{id}/profile', 'UsersController@profile')->middleware('auth')->name('users.profile');
 Route::get('/users/create', 'UsersController@create')->middleware('auth')->name('users.create');
 Route::post('/users/store', 'UsersController@store')->middleware('auth')->name('users.store');
 Route::get('/users/{id}/edit', 'UsersController@edit')->middleware('auth')->name('users.edit');

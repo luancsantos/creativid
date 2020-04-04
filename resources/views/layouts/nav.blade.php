@@ -9,7 +9,7 @@
             @if(Auth::user()->id == 1)
                 <ul class="nav navbar-nav navbar-left">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>Dashboard</span></a>
+                        <a href="{{route('home')}}"><span>Dashboard</span></a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-left">
@@ -65,11 +65,11 @@
             <div id="navbar-menu">
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="assets/img/user.png" class="img-circle" alt="Avatar">
-                             <span>{{ Auth::user()->name }}</span> <i class="icon-submenu lnr lnr-chevron-down"></i>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                             <span>Olá  {{ Auth::user()->name }}</span> <i class="icon-submenu lnr lnr-chevron-down"></i>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
+                            <li><a href="{{route('users.profile', Auth::user()->id)}}"><i class="lnr lnr-user"></i> <span>My Profile</span></a></li>
                             <li><a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault();
                                               document.getElementById('logout-form').submit();">
