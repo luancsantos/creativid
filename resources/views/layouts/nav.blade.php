@@ -3,9 +3,6 @@
             <a href="#"><img style="width: 100px;" src="{{ asset('assets/img/logo.jpeg') }}" alt="HomeJobs Logo" class="img-responsive logo"></a>
         </div>
         <div class="container-fluid">
-            <div class="navbar-btn">
-                <button type="button" class="btn-toggle-fullwidth"><i class="lnr lnr-arrow-left-circle"></i></button>
-            </div>
             @if(Auth::user()->id == 1)
                 <ul class="nav navbar-nav navbar-left">
                     <li class="dropdown">
@@ -33,7 +30,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-left">
                     <li class="dropdown">
-                        <a href="{{route('tickets.index')}}" class="dropdown-toggle" data-toggle="dropdown"><span>Chamados</span></a>
+                        <a href="{{route('tickets.index')}}"><span>Chamados</span></a>
                     </li>
                 </ul>
 
@@ -58,7 +55,7 @@
             @else
             <ul class="nav navbar-nav navbar-left">
                 <li class="dropdown">
-                    <a href="{{route('tickets.index')}}" class="dropdown-toggle" data-toggle="dropdown"><span>Chamados</span></a>
+                    <a href="{{route('tickets.index')}}"><span>Chamados</span></a>
                 </li>
             </ul>
             @endif
