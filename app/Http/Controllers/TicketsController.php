@@ -6,6 +6,7 @@ use App\Ticket;
 use App\Department;
 use App\Status;
 use App\TypeTicket;
+use App\HealthInsurance;
 use App\UploadTicket;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
@@ -47,10 +48,12 @@ class TicketsController extends Controller
         $departments = Department::all();
         $status = Status::all();
         $types = TypeTicket::all();
+        $health = HealthInsurance::all();
 
         return view('tickets/create')->with([
                                             'departments' => $departments,
                                             'status' => $status,
+                                            'health' => $health,
                                             'types' => $types]);
     }
 
@@ -62,12 +65,6 @@ class TicketsController extends Controller
      */
     public function store(Request $request)
     {
-
-        $this->validate($request, [
-            'filename' => 'required',
-            'filename.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
-
         $ticket = Ticket::create([
             'label' => $request->label,
             'description' => $request->description,
@@ -79,18 +76,24 @@ class TicketsController extends Controller
 
         if($request->hasfile('filename'))
          {
+            $this->validate($request, [
+                'filename' => 'required',
+                'filename.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ]);
+
             foreach($request->file('filename') as $image)
             {
                 $name=$image->getClientOriginalName();
                 $image->move(public_path().'/images/'.$ticket->id, $name);
                 $data[] = $name;
             }
+            $form= new UploadTicket();
+            $form->image=json_encode($data);
+            $form->ticket_id=$ticket->id;
+            $form->save();
          }
 
-        $form= new UploadTicket();
-        $form->image=json_encode($data);
-        $form->ticket_id=$ticket->id;
-        $form->save();
+
 
         return back()->with('success', 'Chamado aberto com sucesso');
     }

@@ -36,18 +36,23 @@ class HomeController extends Controller
             $tickets = DB::table('tickets')
                                         ->whereIn('status_id', [1,3])
                                         ->orderBy("created_at")->get();
+            return view('home')->with(['tickets' => $tickets,
+                                        'status' => $status,
+                                        'types' => $types,
+                                        'departments' => $departments]);
 
         } else {
             $tickets = DB::table('tickets')
                                         ->whereIn('status_id', [1,3])
                                         ->where('client_id', $clientId)
                                         ->orderBy("created_at")->get();
+            return view('home')->with(['tickets' => $tickets,
+                                        'status' => $status,
+                                        'types' => $types,
+                                        'departments' => $departments]);
         }
 
-        return view('home')->with(['tickets' => $tickets,
-                                    'status' => $status,
-                                    'types' => $types,
-                                    'departments' => $departments]);
+
     }
 
     public function className($id){

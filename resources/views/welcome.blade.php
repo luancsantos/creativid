@@ -54,9 +54,6 @@
                                     <button type="submit" class="btn btn-primary btn-lg btn-block">
                                         {{ __('Login') }}
                                     </button>
-                                    <div class="bottom">
-                                        <span class="helper-text"><i class="fa fa-lock"></i> <a href="#">Esqueceu a senha?</a></span>
-                                    </div>
                                 </form>
                             </div>
                         </div>

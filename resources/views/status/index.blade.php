@@ -39,16 +39,19 @@
                                 title="Editar">
                             <i class="lnr lnr-pencil"></i>
                         </a>
-                        <a href="{{ route('status.destroy', $item->id) }}"
-                                class="btn btn-danger"
-                                title="Excluir">
+                        <button type="button" class="btn btn-danger" onclick="confirmDelete('{{ $item->id }}')" title="Excluir">
                             <i class="lnr lnr-trash"></i>
-                        </a>
+                        </button>
                     </form>
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 </div>
 @endsection

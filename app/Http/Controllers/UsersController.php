@@ -91,4 +91,12 @@ class UsersController extends Controller
             'message' => 'Usuário excluído com sucesso'
         ]);
     }
+
+    public function profile($userId)
+    {
+        $user = User::find($userId);
+        if(isset($user->id)){
+            return view('users/profile')->with(['user' => $user]);
+        }
+    }
 }

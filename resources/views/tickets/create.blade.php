@@ -31,6 +31,17 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="healt_insurance_id" class="col-md-2 col-form-label text-md-right">{{ __('Convênio') }}</label>
+                    <div class="col-md-6">
+                        <select class="form-control" name="healt_insurance_id" id="healt_insurance_id" required>
+                                <option value="">Selecione</option>
+                                @foreach ($health as $item)
+                                    <option value="{{ $item->id }}">{{ $item->cd_health_insurance }} - {{ $item->name }}</option>
+                                @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="type_id" class="col-md-2 col-form-label text-md-right">{{ __('Tipo') }}</label>
                     <div class="col-md-6">
                         <select class="form-control" name="type_id" id="type_id" required>
@@ -52,8 +63,6 @@
                         </select>
                     </div>
                 </div>
-
-                creativid@ftp.creativid.com.br
                 <div class="form-group row">
                     <label for="status_id" class="col-md-2 col-form-label text-md-right">{{ __('Status') }}</label>
                     <div class="col-md-6">
