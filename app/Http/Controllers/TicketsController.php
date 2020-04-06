@@ -6,6 +6,7 @@ use App\Ticket;
 use App\Department;
 use App\Status;
 use App\TypeTicket;
+use App\HealthInsurance;
 use App\UploadTicket;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
@@ -47,10 +48,12 @@ class TicketsController extends Controller
         $departments = Department::all();
         $status = Status::all();
         $types = TypeTicket::all();
+        $health = HealthInsurance::all();
 
         return view('tickets/create')->with([
                                             'departments' => $departments,
                                             'status' => $status,
+                                            'health' => $health,
                                             'types' => $types]);
     }
 
