@@ -52,8 +52,6 @@
                         </select>
                     </div>
                 </div>
-
-                creativid@ftp.creativid.com.br
                 <div class="form-group row">
                     <label for="status_id" class="col-md-2 col-form-label text-md-right">{{ __('Status') }}</label>
                     <div class="col-md-6">
