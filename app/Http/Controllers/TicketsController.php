@@ -65,12 +65,6 @@ class TicketsController extends Controller
      */
     public function store(Request $request)
     {
-
-        $this->validate($request, [
-            'filename' => 'required',
-            'filename.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
-
         $ticket = Ticket::create([
             'label' => $request->label,
             'description' => $request->description,
@@ -82,18 +76,24 @@ class TicketsController extends Controller
 
         if($request->hasfile('filename'))
          {
+            $this->validate($request, [
+                'filename' => 'required',
+                'filename.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ]);
+
             foreach($request->file('filename') as $image)
             {
                 $name=$image->getClientOriginalName();
                 $image->move(public_path().'/images/'.$ticket->id, $name);
                 $data[] = $name;
             }
+            $form= new UploadTicket();
+            $form->image=json_encode($data);
+            $form->ticket_id=$ticket->id;
+            $form->save();
          }
 
-        $form= new UploadTicket();
-        $form->image=json_encode($data);
-        $form->ticket_id=$ticket->id;
-        $form->save();
+
 
         return back()->with('success', 'Chamado aberto com sucesso');
     }
