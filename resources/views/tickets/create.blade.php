@@ -85,7 +85,7 @@
                 <div class="form-group row">
                     <label for="description" class="col-md-2 col-form-label text-md-right">{{ __('Descrição') }}</label>
                     <div class="col-md-6">
-                        <textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" required autocomplete="description" autofocus placeholder="Descreva o chamado"></textarea>
+                        <textarea id="description" style="height: 232px;" type="text" class="form-control @error('description') is-invalid @enderror" name="description" required autocomplete="description" autofocus placeholder="Descreva o chamado"></textarea>
                         @error('description')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -122,7 +122,6 @@
 @endsection
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script type="text/javascript">
-
     $(document).ready(function() {
 
       $(".btn-success").click(function(){
