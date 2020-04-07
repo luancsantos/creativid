@@ -20,17 +20,6 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="description" class="col-md-2 col-form-label text-md-right">{{ __('Descrição') }}</label>
-                    <div class="col-md-6">
-                        <textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" required autocomplete="description" autofocus placeholder="Descreva o chamado"></textarea>
-                        @error('description')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="form-group row">
                     <label for="healt_insurance_id" class="col-md-2 col-form-label text-md-right">{{ __('Convênio') }}</label>
                     <div class="col-md-6">
                         <select class="form-control" name="healt_insurance_id" id="healt_insurance_id" required>
@@ -93,6 +82,18 @@
                           </div>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label for="description" class="col-md-2 col-form-label text-md-right">{{ __('Descrição') }}</label>
+                    <div class="col-md-6">
+                        <textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" required autocomplete="description" autofocus placeholder="Descreva o chamado"></textarea>
+                        @error('description')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
                 @if(session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
@@ -100,7 +101,7 @@
                 @endif
                 @if (count($errors) > 0)
                 <div class="alert alert-danger">
-                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                    <strong>Whoops!</strong> Algo deu errado!!<br><br>
                     <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
