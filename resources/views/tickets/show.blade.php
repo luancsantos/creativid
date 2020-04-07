@@ -12,16 +12,9 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="description" class="col-md-2 col-form-label text-md-right">{{ __('Descrição') }}</label>
-                    <div class="col-md-6">
-                        <textarea id="description" type="text" class="form-control" readonly>{{ $ticket->description }}</textarea>
-                    </div>
-                </div>
-                <div class="form-group row">
                     <label for="type_id" class="col-md-2 col-form-label text-md-right">{{ __('Tipo') }}</label>
                     <div class="col-md-6">
                         <input id="label" type="text" value='{{ $types->name }}' class="form-control"  readonly/>
-
                     </div>
                 </div>
                 <div class="form-group row">
@@ -42,6 +35,38 @@
                         @foreach ($images as $image)
                             <img src='{{ asset('/images/'.$ticket->id.'/' .$image) }}' style='width:100px;height:100px;'/>
                         @endforeach
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="description" class="col-md-2 col-form-label text-md-right">{{ __('Descrição') }}</label>
+                    <div class="col-md-6">
+                        <textarea id="description" style="height: 232px;" type="text" class="form-control" readonly>{{ $ticket->description }}</textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="description" class="col-md-2 col-form-label text-md-right">{{ __('Comentários') }}</label>
+                    <div class="col-md-8" id="tab-bottom-left1">
+                        <ul class="list-unstyled activity-timeline">
+                            <li>
+                                <i class="fa fa-comment activity-icon"></i>
+                                <p>Commented on post <a href="#">Prototyping</a> <span class="timestamp">2 minutes ago</span></p>
+                            </li>
+                            <li>
+                                <i class="fa fa-comment activity-icon"></i>
+                                <p>Uploaded new file <a href="#">Proposal.docx</a> to project <a href="#">New Year Campaign</a> <span class="timestamp">7 hours ago</span></p>
+                            </li>
+                            <li>
+                                <i class="fa fa-comment activity-icon"></i>
+                                <p>Added <a href="#">Martin</a> and <a href="#">3 others colleagues</a> to project repository <span class="timestamp">Yesterday</span></p>
+                            </li>
+                            <li>
+                                <i class="fa fa-comment activity-icon"></i>
+                                <p>Finished 80% of all <a href="#">assigned tasks</a> <span class="timestamp">1 day ago</span></p>
+                            </li>
+                        </ul>
+                        <div class="col-md-6 offset-md-4">
+                            <button type="button" class="btn btn-success">Responder</button>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group row mb-0">

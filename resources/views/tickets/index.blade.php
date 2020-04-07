@@ -46,7 +46,7 @@
                         @method('DELETE')
                         <a href="{{ route('tickets.show', $item->id) }}"
                                 class="btn btn-primary"
-                                title="Editar">
+                                title="Ver">
                             <i class="lnr lnr-pencil"></i>
                         </a>
                         <button type="button" class="btn btn-danger" onclick="confirmDelete('{{ $item->id }}')" title="Excluir">
