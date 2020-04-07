@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Comment;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -16,8 +17,6 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        $clients = Client::all();
-        return view('clients/index')->with(['clients' => $clients]);
     }
 
     /**
@@ -27,7 +26,6 @@ class CommentsController extends Controller
      */
     public function create()
     {
-
         return view('clients/create');
     }
 
@@ -39,16 +37,15 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        Client::create([
-            'name' => $request->name,
-            'cnpj' => $request->cnpj,
-            'email' => $request->email,
-            'street' => $request->street,
-            'number' => $request->number,
-            'state' => $request->state,
-            'city' => $request->city,
+        Comment::create([
+            'description' => $request->message,
+            'ticket_id' => $request->ticket_id,
+            'user_id' => $request->user_id
         ]);
-        return view('clients/index');
+        return back()->with([
+            'type'    => 'success',
+            'message' => 'Usuário excluído com sucesso'
+        ]);
     }
 
     /**

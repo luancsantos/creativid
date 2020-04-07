@@ -56,17 +56,25 @@
                                 </li>
                             @endforeach
                         </ul>
-                        <form method="POST" action="" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('comments.store') }}" enctype="multipart/form-data" class="form">
+                            <input type="hidden" id="ticket_id" name="ticket_id" value="{{ $ticket->id }}"/>
+                            <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id }}"/>
                             @csrf
-                            <div class="form">
 
-                            </div>
+                            <textarea id='message' name="message" style='height: 232px;width: 814px;margin-bottom:10px;' type='text' class='form-control'></textarea>
+                            <button type='submit' id='send' class='btn btn-success'>Enviar</button>
+                            <button type='button' id='cancel' class='btn btn-danger'>Cancelar</button>
                         </form>
                         <div class="col-md-6 offset-md-4">
                             <button type="button" id='reply' class="btn btn-success">Responder</button>
                         </div>
                     </div>
                 </div>
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-4">
                         <a href="/tickets" class="btn btn-primary">
@@ -84,13 +92,14 @@
         var divPai = $('.form');
         var btnCriar = $('#reply');
 
+        divPai.hide();
+
         btnCriar.click(function(){
-            divPai.append("<textarea id='message' style='height: 232px;width: 814px;margin-bottom:10px;' type='text' class='form-control'></textarea>");
-            divPai.append("<button type='button' id='send' class='btn btn-success'>Enviar</button> ");
-            divPai.append("<button type='button' id='cancel' class='btn btn-danger'>Cancelar</button>");
             var btnCancel = $('#cancel');
             var btnSend = $('#send');
             var btnMsg = $('#message');
+
+            divPai.show();
             btnCriar.hide();
 
             btnCancel.click(function(){
