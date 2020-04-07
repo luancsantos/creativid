@@ -3,8 +3,6 @@
 @section('content')
     <div class="panel">
         <div class="panel-body">
-            <form method="POST" action="{{ route('tickets.store') }}" enctype="multipart/form-data">
-                @csrf
                 <div class="form-group row">
                     <label for="label" class="col-md-2 col-form-label text-md-right">{{ __('Chamado') }}</label>
                     <div class="col-md-6">
@@ -58,8 +56,14 @@
                                 </li>
                             @endforeach
                         </ul>
+                        <form method="POST" action="" enctype="multipart/form-data">
+                            @csrf
+                            <div class="form">
+
+                            </div>
+                        </form>
                         <div class="col-md-6 offset-md-4">
-                            <button type="button" class="btn btn-success">Responder</button>
+                            <button type="button" id='reply' class="btn btn-success">Responder</button>
                         </div>
                     </div>
                 </div>
@@ -76,17 +80,29 @@
 @endsection
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function(){
+        var divPai = $('.form');
+        var btnCriar = $('#reply');
 
-      $(".btn-success").click(function(){
-          var html = $(".clone").html();
-          $(".increment").after(html);
-      });
+        btnCriar.click(function(){
+            divPai.append("<textarea id='message' style='height: 232px;width: 814px;margin-bottom:10px;' type='text' class='form-control'></textarea>");
+            divPai.append("<button type='button' id='send' class='btn btn-success'>Enviar</button> ");
+            divPai.append("<button type='button' id='cancel' class='btn btn-danger'>Cancelar</button>");
+            var btnCancel = $('#cancel');
+            var btnSend = $('#send');
+            var btnMsg = $('#message');
+            btnCriar.hide();
 
-      $("body").on("click",".btn-danger",function(){
-          $(this).parents(".control-group").remove();
-      });
+            btnCancel.click(function(){
+                btnCriar.show();
+                btnCancel.hide();
+                btnMsg.hide();
+                btnSend.hide();
+            });
+        });
+
+
+
 
     });
-
 </script>
