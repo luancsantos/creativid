@@ -31,6 +31,7 @@ Route::get('/users/{id}/edit', 'UsersController@edit')->middleware('auth')->name
 Route::put('/users/{id}/update', 'UsersController@update')->middleware('auth')->name('users.update');
 Route::delete('/users/{id}/destroy', 'UsersController@destroy')->middleware('auth')->name('users.destroy');
 
+Route::post('/comments/store', 'CommentsController@store')->middleware('auth')->name('comments.store');
 
 Route::get('/clients', 'ClientsController@index')->name('clients.index');
 Route::get('/clients/create', 'ClientsController@create')->middleware('auth')->name('clients.create');
