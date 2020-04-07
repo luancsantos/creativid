@@ -8,6 +8,7 @@ use App\Status;
 use App\TypeTicket;
 use App\HealthInsurance;
 use App\UploadTicket;
+use App\User;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -110,25 +111,27 @@ class TicketsController extends Controller
         $types = TypeTicket::find($ticket->type_id);
         $departments = Department::find($ticket->department_id);
         $status = Status::find($ticket->status_id);
+        $users = User::all();
+        $comments = DB::table('comments')->where('ticket_id', $ticketId)->orderBy('created_at','asc')->get();
+
         $images = DB::table('upload_tickets')->where('ticket_id', $ticketId)->get();
 
         foreach ($images as $value) {
             $decode = json_decode($value->image, TRUE);
 
             foreach($decode as $key => $img){
-
                 $list = [];
                 array_push($list,$img);
             }
-
-
         }
 
         if(isset($ticket->id)){
             return view('tickets/show')->with(['ticket' => $ticket,
                                                 'types' => $types,
+                                                'users' => $users,
                                                 'status' => $status,
                                                 'departments' => $departments,
+                                                'comments' => $comments,
                                                 'images' => $list]);
         }
     }

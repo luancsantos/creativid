@@ -47,22 +47,16 @@
                     <label for="description" class="col-md-2 col-form-label text-md-right">{{ __('Comentários') }}</label>
                     <div class="col-md-8" id="tab-bottom-left1">
                         <ul class="list-unstyled activity-timeline">
-                            <li>
-                                <i class="fa fa-comment activity-icon"></i>
-                                <p>Commented on post <a href="#">Prototyping</a> <span class="timestamp">2 minutes ago</span></p>
-                            </li>
-                            <li>
-                                <i class="fa fa-comment activity-icon"></i>
-                                <p>Uploaded new file <a href="#">Proposal.docx</a> to project <a href="#">New Year Campaign</a> <span class="timestamp">7 hours ago</span></p>
-                            </li>
-                            <li>
-                                <i class="fa fa-comment activity-icon"></i>
-                                <p>Added <a href="#">Martin</a> and <a href="#">3 others colleagues</a> to project repository <span class="timestamp">Yesterday</span></p>
-                            </li>
-                            <li>
-                                <i class="fa fa-comment activity-icon"></i>
-                                <p>Finished 80% of all <a href="#">assigned tasks</a> <span class="timestamp">1 day ago</span></p>
-                            </li>
+                            @foreach ($comments as $item)
+                                <li>
+                                    <i class="fa fa-comment activity-icon"></i>
+                                    <p>{{ $item->description }} <span class="timestamp">Comentado por:
+                                        @foreach($users as $user)
+                                            {{ $item->user_id == $user->id ? $user->name : '' }}
+                                        @endforeach
+                                        - {{ date('d-m-Y H:i:s', strtotime($item->created_at)) }}</span></p>
+                                </li>
+                            @endforeach
                         </ul>
                         <div class="col-md-6 offset-md-4">
                             <button type="button" class="btn btn-success">Responder</button>
@@ -80,3 +74,19 @@
         </div>
     </div>
 @endsection
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+      $(".btn-success").click(function(){
+          var html = $(".clone").html();
+          $(".increment").after(html);
+      });
+
+      $("body").on("click",".btn-danger",function(){
+          $(this).parents(".control-group").remove();
+      });
+
+    });
+
+</script>
