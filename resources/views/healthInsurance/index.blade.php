@@ -6,7 +6,7 @@
     <h3 class="page-title">
         <i class="fa fa-newspaper-o"></i> Departamentos
         <div class="pull-right">
-            <a href="{{ route('departments.create') }}" class="btn btn-primary">
+            <a href="{{ route('health-insurance.create') }}" class="btn btn-primary">
                 <i class="fa fa-plus"></i> Cadastrar
             </a>
         </div>
@@ -18,16 +18,16 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Id</th>
+                <th>Código Convênio</th>
                 <th>Nome</th>
                 <th>Data de Criação</th>
                 <th>Ações</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($departments as $item)
+            @foreach ($health as $item)
             <tr>
-                <td>{{ $item->id }}</td>
+                <td>{{ $item->cd_health_insurance }}</td>
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->created_at }}</td>
                 <td>
@@ -48,6 +48,8 @@
             @endforeach
         </tbody>
     </table>
+    <?php echo $health->render(); ?>
+
     @if(session('success'))
         <div class="alert alert-success">
             {{ session('success') }}

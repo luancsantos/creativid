@@ -16,8 +16,8 @@ class HealthInsuranceController extends Controller
      */
     public function index()
     {
-        $status = HealthInsurance::all();
-        return view('status/index')->with(['status' => $status]);
+        $health = HealthInsurance::paginate(10);
+        return view('healthInsurance/index')->with(['health' => $health]);
     }
 
     /**
