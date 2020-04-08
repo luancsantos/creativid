@@ -46,11 +46,11 @@
                         <ul class="dropdown-menu">
                             <li><a href="{{route('users.index')}}">Usuários</a></li>
                             <li><a href="{{route('clients.index')}}">Clientes</a></li>
-                            <li><a href="#">Tipos de Usuários</a></li>
+                            <li><a href="{{route('users-type.index')}}">Tipos de Usuários</a></li>
                             <li><a href="{{route('types.index')}}">Tipos de Chamados</a></li>
                             <li><a href="{{route('status.index')}}">Status</a></li>
                             <li><a href="{{route('departments.index')}}">Departamentos</a></li>
-                            <li><a href="#">Convênios</a></li>
+                        <li><a href="{{route('health-insurance.index')}}">Convênios</a></li>
                         </ul>
                     </li>
                 </ul>

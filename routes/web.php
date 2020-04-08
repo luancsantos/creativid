@@ -31,6 +31,13 @@ Route::get('/users/{id}/edit', 'UsersController@edit')->middleware('auth')->name
 Route::put('/users/{id}/update', 'UsersController@update')->middleware('auth')->name('users.update');
 Route::delete('/users/{id}/destroy', 'UsersController@destroy')->middleware('auth')->name('users.destroy');
 
+Route::get('/users-type', 'UsersTypeController@index')->middleware('auth')->name('users-type.index');
+Route::get('/users-type/create', 'UsersTypeController@create')->middleware('auth')->name('users-type.create');
+Route::post('/users-type/store', 'UsersTypeController@store')->middleware('auth')->name('users-type.store');
+Route::get('/users-type/{id}/edit', 'UsersTypeController@edit')->middleware('auth')->name('users-type.edit');
+Route::put('/users-type/{id}/update', 'UsersTypeController@update')->middleware('auth')->name('users-type.update');
+Route::get('/users-type/{id}/destroy', 'UsersTypeController@destroy')->middleware('auth')->name('users-type.destroy');
+
 Route::post('/comments/store', 'CommentsController@store')->middleware('auth')->name('comments.store');
 
 Route::get('/clients', 'ClientsController@index')->name('clients.index');
@@ -68,3 +75,10 @@ Route::get('/tickets/{id}/edit', 'TicketsController@edit')->middleware('auth')->
 Route::put('/tickets/{id}/update', 'TicketsController@update')->middleware('auth')->name('tickets.update');
 Route::delete('/tickets/{id}/destroy', 'TicketsController@destroy')->middleware('auth')->name('tickets.destroy');
 Route::get('/tickets/{id}/show', 'TicketsController@show')->middleware('auth')->name('tickets.show');
+
+Route::get('/health-insurance', 'HealthInsuranceController@index')->name('health-insurance.index');
+Route::get('/health-insurance/create', 'HealthInsuranceController@create')->middleware('auth')->name('health-insurance.create');
+Route::post('/health-insurance/store', 'HealthInsuranceController@store')->middleware('auth')->name('health-insurance.store');
+Route::get('/health-insurance/{id}/edit', 'HealthInsuranceController@edit')->middleware('auth')->name('health-insurance.edit');
+Route::put('/health-insurance/{id}/update', 'HealthInsuranceController@update')->middleware('auth')->name('health-insurance.update');
+Route::delete('/health-insurance/{id}/destroy', 'HealthInsuranceController@destroy')->middleware('auth')->name('health-insurance.destroy');
