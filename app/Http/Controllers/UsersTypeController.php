@@ -29,6 +29,20 @@ class UsersTypeController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($typeId)
+    {
+        $type = UserType::find($typeId);
+        if(isset($type->id)){
+            return view('userstype/edit')->with(['type' => $type]);
+        }
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -39,21 +53,8 @@ class UsersTypeController extends Controller
         UserType::create([
             'label' => $request->label
         ]);
-        return back()->with([
-            'type'    => 'success',
-            'message' => 'Usuário excluído com sucesso'
-        ]);
-    }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\UserType  $userType
-     * @return \Illuminate\Http\Response
-     */
-    public function show(UserType $userType)
-    {
-        //
+        return back()->with('success', 'Criado com sucesso');
     }
 
     /**
@@ -62,22 +63,15 @@ class UsersTypeController extends Controller
      * @param  \App\UserType  $userType
      * @return \Illuminate\Http\Response
      */
-    public function edit(UserType $userType)
+    public function update(Request $request)
     {
-        //
+        $types = UserType::find($request->id);
+        $types->label = $request->name;
+        $types->save();
+
+        return back()->with('success', 'Alterado com sucesso');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\UserType  $userType
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, UserType $userType)
-    {
-        //
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -85,8 +79,11 @@ class UsersTypeController extends Controller
      * @param  \App\UserType  $userType
      * @return \Illuminate\Http\Response
      */
-    public function destroy(UserType $userType)
+    public function destroy($id)
     {
-        //
+        $types = UserType::find($id);
+        $types->delete();
+
+        return back()->with('success', 'Excluído com sucesso');
     }
 }

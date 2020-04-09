@@ -29,6 +29,9 @@
                         <button type="submit" class="btn btn-primary">
                             {{ __('Salvar') }}
                         </button>
+                        <a href="/users-type" class="btn btn-primary">
+                            {{ __('Voltar') }}
+                        </a>
                     </div>
                 </div>
             </form>

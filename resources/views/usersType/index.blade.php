@@ -18,14 +18,17 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>Id</th>
                 <th>Nome</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($userType as $item)
             <tr>
+                <td>{{ $item->id }}</td>
                 <td>{{ $item->label }}</td>
                 <td>
+                    @if ($item->id !== 1)
                     <form method="post" action="{{route('users-type.destroy', $item->id)}}" id="{{ $item->id }}">
                         @csrf
                         @method('DELETE')
@@ -34,16 +37,21 @@
                                 title="Editar">
                             <i class="lnr lnr-pencil"></i>
                         </a>
-                        <a href="{{ route('users-type.destroy', $item->id) }}"
-                                class="btn btn-danger"
-                                title="Excluir">
+                        <button type="button" class="btn btn-danger" onclick="confirmDelete('{{ $item->id }}')" title="Excluir">
                             <i class="lnr lnr-trash"></i>
-                        </a>
+                        </button>
                     </form>
+                    @endif
+
                 </td>
             </tr>
             @endforeach
         </tbody>
     </table>
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 </div>
 @endsection

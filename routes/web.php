@@ -36,7 +36,7 @@ Route::get('/users-type/create', 'UsersTypeController@create')->middleware('auth
 Route::post('/users-type/store', 'UsersTypeController@store')->middleware('auth')->name('users-type.store');
 Route::get('/users-type/{id}/edit', 'UsersTypeController@edit')->middleware('auth')->name('users-type.edit');
 Route::post('/users-type/{id}/update', 'UsersTypeController@update')->middleware('auth')->name('users-type.update');
-Route::get('/users-type/{id}/destroy', 'UsersTypeController@destroy')->middleware('auth')->name('users-type.destroy');
+Route::delete('/users-type/{id}/destroy', 'UsersTypeController@destroy')->middleware('auth')->name('users-type.destroy');
 
 Route::post('/comments/store', 'CommentsController@store')->middleware('auth')->name('comments.store');
 
