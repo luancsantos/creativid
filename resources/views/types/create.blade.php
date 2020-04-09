@@ -3,7 +3,7 @@
 @section('content')
     <div class="panel">
         <div class="panel-heading">
-            <h3 class="panel-title">{{ __('Criar Tipos') }}</h3>
+            <h3 class="panel-title">{{ __('Criar Tipos de Chamados') }}</h3>
         </div>
         <div class="panel-body">
             <form method="POST" action="{{ route('types.store') }}">
@@ -25,9 +25,17 @@
                         <button type="submit" class="btn btn-primary">
                             {{ __('Salvar') }}
                         </button>
+                        <a href="/types" class="btn btn-primary">
+                            {{ __('Voltar') }}
+                        </a>
                     </div>
                 </div>
             </form>
+            @if(session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
         </div>
     </div>
 @endsection
