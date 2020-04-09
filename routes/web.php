@@ -80,5 +80,5 @@ Route::get('/health-insurance', 'HealthInsuranceController@index')->name('health
 Route::get('/health-insurance/create', 'HealthInsuranceController@create')->middleware('auth')->name('health-insurance.create');
 Route::post('/health-insurance/store', 'HealthInsuranceController@store')->middleware('auth')->name('health-insurance.store');
 Route::get('/health-insurance/{id}/edit', 'HealthInsuranceController@edit')->middleware('auth')->name('health-insurance.edit');
-Route::put('/health-insurance/{id}/update', 'HealthInsuranceController@update')->middleware('auth')->name('health-insurance.update');
+Route::post('/health-insurance/{id}/update', 'HealthInsuranceController@update')->middleware('auth')->name('health-insurance.update');
 Route::delete('/health-insurance/{id}/destroy', 'HealthInsuranceController@destroy')->middleware('auth')->name('health-insurance.destroy');

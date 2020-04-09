@@ -4,7 +4,7 @@
 <div class="main-content">
 <div class="container-fluid">
     <h3 class="page-title">
-        <i class="fa fa-newspaper-o"></i> Departamentos
+        <i class="fa fa-newspaper-o"></i> Convênios
         <div class="pull-right">
             <a href="{{ route('health-insurance.create') }}" class="btn btn-primary">
                 <i class="fa fa-plus"></i> Cadastrar
@@ -31,10 +31,10 @@
                 <td>{{ $item->name }}</td>
                 <td>{{ $item->created_at }}</td>
                 <td>
-                    <form method="post" action="{{route('departments.destroy', $item->id)}}" id="{{ $item->id }}">
+                    <form method="post" action="{{route('health-insurance.destroy', $item->id)}}" id="{{ $item->id }}">
                         @csrf
                         @method('DELETE')
-                        <a href="{{ route('departments.edit', $item->id) }}"
+                        <a href="{{ route('health-insurance.edit', $item->id) }}"
                                 class="btn btn-primary"
                                 title="Editar">
                             <i class="lnr lnr-pencil"></i>

@@ -28,7 +28,7 @@ class HealthInsuranceController extends Controller
     public function create()
     {
 
-        return view('status/create');
+        return view('healthInsurance/create');
     }
 
     /**
@@ -41,14 +41,9 @@ class HealthInsuranceController extends Controller
     {
         HealthInsurance::create([
             'name' => $request->name,
-            'cnpj' => $request->cnpj,
-            'email' => $request->email,
-            'street' => $request->street,
-            'number' => $request->number,
-            'state' => $request->state,
-            'city' => $request->city,
+            'cd_health_insurance' => $request->cd_health_insurance,
         ]);
-        return view('status/index');
+        return back()->with('success', 'Criado com sucesso');
     }
 
     /**
@@ -57,11 +52,11 @@ class HealthInsuranceController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($userId)
+    public function edit($health)
     {
-        $user = HealthInsurance::find($userId);
-        if(isset($user->id)){
-            return view('status/edit')->with(['user' => $user]);
+        $health = HealthInsurance::find($health);
+        if(isset($health->id)){
+            return view('healthInsurance/edit')->with(['health' => $health]);
         }
     }
 
@@ -72,9 +67,14 @@ class HealthInsuranceController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        //
+        $level = HealthInsurance::find($request->id);
+        $level->name = $request->name;
+        $level->cd_health_insurance = $request->cd_health_insurance;
+        $level->save();
+
+        return back()->with('success', 'Convênio alterado com sucesso');
     }
 
     /**
@@ -88,9 +88,6 @@ class HealthInsuranceController extends Controller
         $user = HealthInsurance::find($id);
         $user->delete();
 
-        return back()->with([
-            'type'    => 'success',
-            'message' => 'Usuário excluído com sucesso'
-        ]);
+        return back()->with('success', 'Convênio excluído com sucesso');
     }
 }
