@@ -11,7 +11,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-left">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>XML+</span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>XML+</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{route('users.index')}}">Importar</a></li>
                         </ul>
@@ -42,7 +42,7 @@
 
                 <ul class="nav navbar-nav navbar-left">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>Configurações</span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>Configurações</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{route('users.index')}}">Usuários</a></li>
                             <li><a href="{{route('clients.index')}}">Clientes</a></li>
