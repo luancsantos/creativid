@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Client;
+use App\UserType;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -29,7 +30,8 @@ class UsersController extends Controller
     public function create()
     {
         $clients = Client::all();
-        return view('users/create')->with(['clients' => $clients]);
+        $types = UserType::all();
+        return view('users/create')->with(['clients' => $clients, 'types' => $types]);
     }
 
     /**
@@ -45,6 +47,7 @@ class UsersController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'client_id' => $request->client_id,
+            'type_user_id' => $request->type_user_id
         ]);
         return back()->with('success', 'Criado com sucesso');
     }
@@ -58,8 +61,10 @@ class UsersController extends Controller
     public function edit($userId)
     {
         $user = User::find($userId);
+        $clients = Client::all();
+        $types = UserType::all();
         if(isset($user->id)){
-            return view('users/edit')->with(['user' => $user]);
+            return view('users/edit')->with(['user' => $user, 'types' => $types, 'clients' => $clients]);
         }
     }
 
@@ -70,9 +75,17 @@ class UsersController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        //
+        $user = User::find($request->id);
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->client_id = $request->client_id;
+        $user->type_user_id = $request->type_user_id;
+        $user->save();
+
+        return back()->with('success', 'Alterado com sucesso');
     }
 
     /**
@@ -86,10 +99,7 @@ class UsersController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        return back()->with([
-            'type'    => 'success',
-            'message' => 'Usuário excluído com sucesso'
-        ]);
+        return back()->with('success', 'Excluído com sucesso');
     }
 
     public function profile($userId)

@@ -53,6 +53,17 @@
                         </select>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label for="type_user_id" class="col-md-2 col-form-label text-md-right">{{ __('Tipo de Usuário') }}</label>
+                    <div class="col-md-6">
+                        <select class="form-control" name="type_user_id" id="type_user_id" required>
+                                <option value="">Selecione</option>
+                                @foreach ($types as $item)
+                                    <option value="{{ $item->id }}">{{ $item->label }}</option>
+                                @endforeach
+                        </select>
+                    </div>
+                </div>
                 @if(session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
