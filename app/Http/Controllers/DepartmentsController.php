@@ -85,6 +85,6 @@ class DepartmentsController extends Controller
         $user = Department::find($id);
         $user->delete();
 
-        return back()->with('Departamento', 'Convênio excluído com sucesso');
+        return back()->with('success', 'Departamento excluído com sucesso');
     }
 }
