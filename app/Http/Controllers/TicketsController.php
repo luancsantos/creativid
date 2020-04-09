@@ -24,18 +24,18 @@ class TicketsController extends Controller
      */
     public function index()
     {
-        $clientId = Auth::user()->client_id;
-        if($clientId == null){
-            $tickets = Ticket::all();
+        if(Auth::user()->type_user_id == 1){
+            $tickets = Ticket::orderBy("created_at","DESC")->get();;
         } else {
-            $tickets = DB::table('tickets')->where('client_id', $clientId)->orderBy("created_at")->get();
+            $tickets = DB::table('tickets')->where('user_id', Auth::user()->id)->orderBy("created_at","DESC")->get();
         }
 
         $types = TypeTicket::all();
         $departments = Department::all();
-
+        $users = User::all();
         return view('tickets/index')->with(['tickets' => $tickets,
                                             'types' => $types,
+                                            'users' => $users,
                                             'departments' => $departments]);
     }
 
@@ -46,14 +46,11 @@ class TicketsController extends Controller
      */
     public function create()
     {
-        $departments = Department::all();
-        $status = Status::all();
         $types = TypeTicket::all();
-        $health = HealthInsurance::all();
+
+        $health = HealthInsurance::orderBy('name', 'ASC')->get();
 
         return view('tickets/create')->with([
-                                            'departments' => $departments,
-                                            'status' => $status,
                                             'health' => $health,
                                             'types' => $types]);
     }
@@ -70,9 +67,10 @@ class TicketsController extends Controller
             'label' => $request->label,
             'description' => $request->description,
             'type_id' => $request->type_id,
-            'department_id' => $request->department_id,
+            'department_id' => Auth::user()->type_user_id,
             'client_id' => Auth::user()->client_id,
-            'status_id' => $request->status_id
+            'user_id' => Auth::user()->id,
+            'status_id' => 1
         ]);
 
         if($request->hasfile('filename'))
@@ -94,8 +92,6 @@ class TicketsController extends Controller
             $form->save();
          }
 
-
-
         return back()->with('success', 'Chamado aberto com sucesso');
     }
 
@@ -110,29 +106,39 @@ class TicketsController extends Controller
         $ticket = Ticket::find($ticketId);
         $types = TypeTicket::find($ticket->type_id);
         $departments = Department::find($ticket->department_id);
-        $status = Status::find($ticket->status_id);
+        $status = Status::all();
         $users = User::all();
         $comments = DB::table('comments')->where('ticket_id', $ticketId)->orderBy('created_at','asc')->get();
 
         $images = DB::table('upload_tickets')->where('ticket_id', $ticketId)->get();
+        if(!empty($images)){
+            $list = [];
+            foreach ($images as $value) {
+                $decode = json_decode($value->image, TRUE);
 
-        foreach ($images as $value) {
-            $decode = json_decode($value->image, TRUE);
-
-            foreach($decode as $key => $img){
-                $list = [];
-                array_push($list,$img);
+                foreach($decode as $key => $img){
+                    array_push($list,$img);
+                }
             }
         }
 
         if(isset($ticket->id)){
-            return view('tickets/show')->with(['ticket' => $ticket,
+            if (isset($list)) {
+                return view('tickets/show')->with(['ticket' => $ticket,
                                                 'types' => $types,
                                                 'users' => $users,
                                                 'status' => $status,
                                                 'departments' => $departments,
                                                 'comments' => $comments,
                                                 'images' => $list]);
+            } else {
+                return view('tickets/show')->with(['ticket' => $ticket,
+                                                'types' => $types,
+                                                'users' => $users,
+                                                'status' => $status,
+                                                'departments' => $departments,
+                                                'comments' => $comments]);
+            }
         }
     }
 
@@ -168,9 +174,6 @@ class TicketsController extends Controller
         $ticket = Ticket::find($id);
         $ticket->delete();
 
-        return back()->with([
-            'type'    => 'success',
-            'message' => 'Usuário excluído com sucesso'
-        ]);
+        return back()->with('success', 'Excluído com sucesso');
     }
 }

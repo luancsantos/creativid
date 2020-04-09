@@ -2,15 +2,18 @@
 
 @section('content')
     <div class="panel">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ __('Chamado') }} - {{ $ticket->id }}</h3>
+        </div>
         <div class="panel-body">
                 <div class="form-group row">
-                    <label for="label" class="col-md-2 col-form-label text-md-right">{{ __('Chamado') }}</label>
+                    <label for="label" class="col-md-2 col-form-label text-md-right">{{ __('Breve Descrição') }}</label>
                     <div class="col-md-6">
                         <input id="label" type="text" value='{{ $ticket->label }}' class="form-control"  readonly/>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="type_id" class="col-md-2 col-form-label text-md-right">{{ __('Tipo') }}</label>
+                    <label for="type_id" class="col-md-2 col-form-label text-md-right">{{ __('Tipo de Chamado') }}</label>
                     <div class="col-md-6">
                         <input id="label" type="text" value='{{ $types->name }}' class="form-control"  readonly/>
                     </div>
@@ -24,15 +27,25 @@
                 <div class="form-group row">
                     <label for="status_id" class="col-md-2 col-form-label text-md-right">{{ __('Status') }}</label>
                     <div class="col-md-6">
-                        <input id="label" type="text" value='{{ $status->name }}' class="form-control"  readonly/>
+
+                        <select class="form-control" name="healt_insurance_id" id="healt_insurance_id" {{ Auth::user()->type_user_id == 1 ? 'required' : 'disabled'}}>
+                            <option value="">Selecione</option>
+                            @foreach ($status as $key => $item)
+                                <option value="{{ $item->id }}" {{ $ticket->status_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="file" class="col-md-2 col-form-label text-md-right">{{ __('Arquivos') }}</label>
                     <div class="col-md-6">
-                        @foreach ($images as $image)
-                            <img src='{{ asset('/images/'.$ticket->id.'/' .$image) }}' style='width:100px;height:100px;'/>
-                        @endforeach
+                        @if(isset($images))
+                            @foreach ($images as $image)
+                                <a href="{{ asset('/images/'.$ticket->id.'/' .$image) }}" download="Arquivo - {{ $image }}"><button>Download</button></a>
+                            @endforeach
+                        @else
+                            <span>Não há imagem</span>
+                        @endif
                     </div>
                 </div>
                 <div class="form-group row">
@@ -82,11 +95,10 @@
                         </a>
                     </div>
                 </div>
-            </form>
         </div>
     </div>
 @endsection
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script type="text/javascript">
     $(document).ready(function(){
         var divPai = $('.form');
@@ -109,9 +121,5 @@
                 btnSend.hide();
             });
         });
-
-
-
-
     });
 </script>

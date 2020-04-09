@@ -25,7 +25,7 @@
                         <select class="form-control" name="healt_insurance_id" id="healt_insurance_id" required>
                                 <option value="">Selecione</option>
                                 @foreach ($health as $item)
-                                    <option value="{{ $item->id }}">{{ $item->cd_health_insurance }} - {{ $item->name }}</option>
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
                         </select>
                     </div>
@@ -36,28 +36,6 @@
                         <select class="form-control" name="type_id" id="type_id" required>
                                 <option value="">Selecione</option>
                                 @foreach ($types as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="department_id" class="col-md-2 col-form-label text-md-right">{{ __('Departamento') }}</label>
-                    <div class="col-md-6">
-                        <select class="form-control" name="department_id" id="department_id" required>
-                                <option value="">Selecione</option>
-                                @foreach ($departments as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="status_id" class="col-md-2 col-form-label text-md-right">{{ __('Status') }}</label>
-                    <div class="col-md-6">
-                        <select class="form-control" name="status_id" id="status_id" required>
-                                <option value="">Selecione</option>
-                                @foreach ($status as $item)
                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
                         </select>

@@ -16,7 +16,8 @@
                 <th>ID</th>
                 <th>Descrição</th>
                 <th>Tipo de Chamado</th>
-                <th>Departamento</th>
+                <th>Usuário</th>
+                <th>{{ Auth::user()->type_user_id == 1 ? 'Cliente' : 'Departamento'}}</th>
                 <th>Status</th>
             </tr>
         </thead>
@@ -31,9 +32,20 @@
                     @endforeach
                 </td>
                 <td>
-                    @foreach ($departments as $department)
-                        {{ $item->department_id == $department->id ? $department->name : '' }}
+                    @foreach ($users as $user)
+                        {{ $item->user_id == $user->id ? $user->name : '' }}
                     @endforeach
+                </td>
+                <td>
+                    @if(Auth::user()->type_user_id == 1)
+                        @foreach ($clients as $client)
+                            {{ $item->client_id == $client->id ? $client->name : '' }}
+                        @endforeach
+                    @else
+                        @foreach ($departments as $department)
+                            {{ $item->department_id == $department->id ? $department->name : '' }}
+                        @endforeach
+                    @endif
                 </td>
                 <td>
                     @if ($item->status_id == 1)

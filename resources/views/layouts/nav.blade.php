@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default navbar-fixed-top">
         <div class="brand">
-            <a href="#"><img style="width: 100px;" src="{{ asset('assets/img/logo.jpeg') }}" alt="HomeJobs Logo" class="img-responsive logo"></a>
+            <a href="{{route('home')}}"><img style="width: 100px;" src="{{ asset('assets/img/logo.jpeg') }}" alt="HomeJobs Logo" class="img-responsive logo"></a>
         </div>
         <div class="container-fluid">
             @if(Auth::user()->id == 1)

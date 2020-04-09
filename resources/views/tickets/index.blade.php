@@ -4,7 +4,7 @@
 <div class="main-content">
 <div class="container-fluid">
     <h3 class="page-title">
-        <i class="fa fa-newspaper-o"></i> Chamados
+    <i class="fa fa-newspaper-o"></i> {{ Auth::user()->type_user_id == 1 ? 'Todos' : 'Seus'}} Chamados
         <div class="pull-right">
             <a href="{{ route('tickets.create') }}" class="btn btn-primary">
                 <i class="fa fa-plus"></i> Cadastrar
@@ -21,6 +21,7 @@
                 <th>ID</th>
                 <th>Descrição</th>
                 <th>Tipo de Chamado</th>
+                <th>Usuário</th>
                 <th>Departamento</th>
                 <th>Ações</th>
             </tr>
@@ -29,10 +30,15 @@
             @foreach ($tickets as $item)
             <tr>
                 <td>{{ $item->id }}</td>
-                <td>{{ $item->description }}</td>
+                <td>{{ $item->label }}</td>
                 <td>
                     @foreach ($types as $type)
                         {{ $item->type_id == $type->id ? $type->name : '' }}
+                    @endforeach
+                </td>
+                <td>
+                    @foreach ($users as $user)
+                        {{ $item->user_id == $user->id ? $user->name : '' }}
                     @endforeach
                 </td>
                 <td>
