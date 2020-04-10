@@ -50,7 +50,7 @@
                             <li><a href="{{route('types.index')}}">Tipos de Chamados</a></li>
                             <li><a href="{{route('status.index')}}">Status</a></li>
                             <li><a href="{{route('departments.index')}}">Departamentos</a></li>
-                        <li><a href="{{route('health-insurance.index')}}">Convênios</a></li>
+                            <li><a href="{{route('health-insurance.index')}}">Convênios</a></li>
                         </ul>
                     </li>
                 </ul>

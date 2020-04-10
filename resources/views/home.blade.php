@@ -25,7 +25,9 @@
             @foreach ($tickets as $item)
             <tr>
                 <td>{{ $item->id }}</td>
-                <td>{{ $item->label }}</td>
+                <td>
+                    <a href="{{ request()->getSchemeAndHttpHost().'/tickets/'. $item->id . '/show' }}"> {{ $item->label }}</a>
+                </td>
                 <td>
                     @foreach ($types as $type)
                         {{ $item->type_id == $type->id ? $type->name : '' }}

@@ -32,7 +32,7 @@ class HomeController extends Controller
         $status = Status::all();
         $types = TypeTicket::all();
         $users = User::all();
-
+        //dd($_SERVER['SERVER_NAME']);
         if(Auth::user()->type_user_id == 1){
             $client = Client::all();
             $tickets = DB::table('tickets')
