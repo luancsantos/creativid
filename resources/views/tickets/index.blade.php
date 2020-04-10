@@ -6,13 +6,24 @@
     <h3 class="page-title">
     <i class="fa fa-newspaper-o"></i> {{ Auth::user()->type_user_id == 1 ? 'Todos' : 'Seus'}} Chamados
         <div class="pull-right">
+            <a href="#" id="mostrar">
+                <button type="button" class="btn btn-default"><i class="fa fa-plus-square"></i> Filtros
+                </button>
+            </a>
             <a href="{{ route('tickets.create') }}" class="btn btn-primary">
                 <i class="fa fa-plus"></i> Cadastrar
             </a>
         </div>
     </h3>
 <div class="row">
-<!-- TABLE NO PADDING -->
+
+<div id="capaefectos" style="border:1px solid #000000 ;display: none;">
+
+    <p>
+        <a href="#" id="ocultar">Ocultar a filtro</a>
+    </p>
+</div>
+
 <div class="panel">
 <div class="panel-body no-padding">
     <table class="table table-striped">
@@ -65,9 +76,24 @@
         </tbody>
     </table>
     @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <i class="fa fa-check-circle"></i> {{ session('success') }}
         </div>
     @endif
 </div>
 @endsection
+<script language="javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#ocultar").click(function(event){
+            event.preventDefault();
+            $("#capaefectos").hide("slow");
+        });
+
+        $("#mostrar").click(function(event){
+            event.preventDefault();
+            $("#capaefectos").show("slow");
+        });
+    });
+</script>
