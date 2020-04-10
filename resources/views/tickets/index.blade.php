@@ -53,7 +53,7 @@
                         <a href="{{ route('tickets.show', $item->id) }}"
                                 class="btn btn-primary"
                                 title="Ver">
-                            <i class="lnr lnr-pencil"></i>
+                            <i class="fa fa-eye"></i>
                         </a>
                         <button type="button" class="btn btn-danger" onclick="confirmDelete('{{ $item->id }}')" title="Excluir">
                             <i class="lnr lnr-trash"></i>
