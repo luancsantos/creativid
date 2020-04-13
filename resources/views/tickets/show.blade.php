@@ -40,8 +40,8 @@
                     <label for="file" class="col-md-2 col-form-label text-md-right">{{ __('Arquivos') }}</label>
                     <div class="col-md-6">
                         @if(isset($images))
-                            @foreach ($images as $image)
-                                <a href="{{ asset('/images/'.$ticket->id.'/' .$image) }}" download="Arquivo - {{ $image }}"><button>Download</button></a>
+                            @foreach ($images as $key => $image)
+                    <a href="{{ asset('/images/'.$ticket->id.'/' .$image) }}" download="Arquivo - {{ $image }}"><button>Download {{ ++$key }} </button></a>
                             @endforeach
                         @else
                             <span>Não há imagem</span>
