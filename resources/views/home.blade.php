@@ -14,7 +14,7 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Descrição</th>
+                <th>Breve Descrição</th>
                 <th>Tipo de Chamado</th>
                 <th>Usuário</th>
                 <th>{{ Auth::user()->type_user_id == 1 ? 'Cliente' : 'Departamento'}}</th>

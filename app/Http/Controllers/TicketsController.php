@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Ticket;
 use App\Department;
+use App\Client;
 use App\Status;
 use App\TypeTicket;
 use App\HealthInsurance;
@@ -30,12 +31,17 @@ class TicketsController extends Controller
             $tickets = DB::table('tickets')->where('user_id', Auth::user()->id)->orderBy("created_at","DESC")->get();
         }
 
+        $status = Status::all();
         $types = TypeTicket::all();
         $departments = Department::all();
         $users = User::all();
+        $clients = Client::all();
+
         return view('tickets/index')->with(['tickets' => $tickets,
                                             'types' => $types,
                                             'users' => $users,
+                                            'status' => $status,
+                                            'clients' => $clients,
                                             'departments' => $departments]);
     }
 
