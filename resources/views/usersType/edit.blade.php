@@ -19,7 +19,17 @@
                         @enderror
                     </div>
                 </div>
-
+                <div class="form-group row">
+                    <label for="department_id" class="col-md-2 col-form-label text-md-right">{{ __('Departamento') }}</label>
+                    <div class="col-md-6">
+                        <select class="form-control" name="department_id" id="department_id" required>
+                                <option value="">Selecione</option>
+                                @foreach ($department as $item)
+                                    <option value="{{ $item->id }}" {{ $type->department_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
+                                @endforeach
+                        </select>
+                    </div>
+                </div>
                 <div class="form-group row mb-0">
                     <div class="col-md-6 offset-md-4">
                         <button type="submit" class="btn btn-primary">

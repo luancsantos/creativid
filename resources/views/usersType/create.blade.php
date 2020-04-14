@@ -9,7 +9,7 @@
             <form method="POST" action="{{ route('users-type.store') }}">
                 @csrf
                 <div class="form-group row">
-                    <label for="label" class="col-md-4 col-form-label text-md-right">{{ __('Nome') }}</label>
+                    <label for="label" class="col-md-2 col-form-label text-md-right">{{ __('Nome') }}</label>
                     <div class="col-md-6">
                         <input id="label" type="text" class="form-control @error('label') is-invalid @enderror" name="label" required autocomplete="label" autofocus placeholder="Nome">
                         @error('label')
@@ -17,6 +17,17 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="department_id" class="col-md-2 col-form-label text-md-right">{{ __('Departamento') }}</label>
+                    <div class="col-md-6">
+                        <select class="form-control" name="department_id" id="department_id" required>
+                                <option value="">Selecione</option>
+                                @foreach ($department as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
+                        </select>
                     </div>
                 </div>
                 @if(session('success'))

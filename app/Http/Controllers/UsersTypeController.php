@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\UserType;
+use App\Department;
 use Illuminate\Http\Request;
 
 class UsersTypeController extends Controller
@@ -25,7 +26,8 @@ class UsersTypeController extends Controller
      */
     public function create()
     {
-        return view('userstype/create');
+        $department = Department::all();
+        return view('userstype/create')->with(['department' => $department]);
     }
 
     /**
@@ -37,8 +39,9 @@ class UsersTypeController extends Controller
     public function edit($typeId)
     {
         $type = UserType::find($typeId);
+        $department = Department::all();
         if(isset($type->id)){
-            return view('userstype/edit')->with(['type' => $type]);
+            return view('userstype/edit')->with(['type' => $type, 'department' => $department]);
         }
     }
 
@@ -51,7 +54,8 @@ class UsersTypeController extends Controller
     public function store(Request $request)
     {
         UserType::create([
-            'label' => $request->label
+            'label' => $request->label,
+            'department_id' => $request->department_id
         ]);
 
         return back()->with('success', 'Criado com sucesso');
@@ -67,6 +71,7 @@ class UsersTypeController extends Controller
     {
         $types = UserType::find($request->id);
         $types->label = $request->name;
+        $types->department_id = $request->department_id;
         $types->save();
 
         return back()->with('success', 'Alterado com sucesso');
