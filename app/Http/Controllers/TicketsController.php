@@ -8,13 +8,16 @@ use App\Client;
 use App\Status;
 use App\TypeTicket;
 use App\HealthInsurance;
+use App\Mail\TicketCreate;
 use App\UploadTicket;
 use App\User;
+use App\UserType;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class TicketsController extends Controller
 {
@@ -69,15 +72,20 @@ class TicketsController extends Controller
      */
     public function store(Request $request)
     {
+        $userType = UserType::find(Auth::user()->type_user_id);
+
         $ticket = Ticket::create([
             'label' => $request->label,
             'description' => $request->description,
+            'health_insurance_id' => $request->health_insurance_id,
             'type_id' => $request->type_id,
-            'department_id' => Auth::user()->type_user_id,
+            'department_id' => $userType->department_id,
             'client_id' => Auth::user()->client_id,
             'user_id' => Auth::user()->id,
             'status_id' => 1
         ]);
+
+        Mail::to('luan.santos@creativid.com.br')->send(new TicketCreate(Auth::user(), $ticket));
 
         if($request->hasfile('filename'))
          {

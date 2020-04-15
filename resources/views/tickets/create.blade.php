@@ -20,9 +20,9 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="healt_insurance_id" class="col-md-2 col-form-label text-md-right">{{ __('Convênio') }}</label>
+                    <label for="health_insurance_id" class="col-md-2 col-form-label text-md-right">{{ __('Convênio') }}</label>
                     <div class="col-md-6">
-                        <select class="form-control" name="healt_insurance_id" id="healt_insurance_id" required>
+                        <select class="form-control" name="health_insurance_id" id="health_insurance_id" required>
                                 <option value="">Selecione</option>
                                 @foreach ($health as $item)
                                     <option value="{{ $item->id }}">{{ $item->name }}</option>

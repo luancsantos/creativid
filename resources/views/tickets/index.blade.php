@@ -163,7 +163,7 @@
     @endif
 </div>
 @endsection
-<script language="javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 <script>
     $(document).ready(function(){
         $("#ocultar").click(function(event){

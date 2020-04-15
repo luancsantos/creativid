@@ -16,7 +16,7 @@ class UsersTypeController extends Controller
     public function index()
     {
         $userType = UserType::all();
-        return view('userstype/index')->with(['userType' => $userType]);
+        return view('usersType/index')->with(['userType' => $userType]);
     }
 
     /**
@@ -27,7 +27,7 @@ class UsersTypeController extends Controller
     public function create()
     {
         $department = Department::all();
-        return view('userstype/create')->with(['department' => $department]);
+        return view('usersType/create')->with(['department' => $department]);
     }
 
     /**
@@ -41,7 +41,7 @@ class UsersTypeController extends Controller
         $type = UserType::find($typeId);
         $department = Department::all();
         if(isset($type->id)){
-            return view('userstype/edit')->with(['type' => $type, 'department' => $department]);
+            return view('usersType/edit')->with(['type' => $type, 'department' => $department]);
         }
     }
 
