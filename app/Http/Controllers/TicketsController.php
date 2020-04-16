@@ -9,6 +9,7 @@ use App\Status;
 use App\TypeTicket;
 use App\HealthInsurance;
 use App\Mail\TicketCreate;
+use App\Mail\TicketStatus;
 use App\UploadTicket;
 use App\User;
 use App\UserType;
@@ -167,7 +168,13 @@ class TicketsController extends Controller
     {
         $ticket = Ticket::find($request->id);
         $ticket->status_id = $request->status_id;
-        $ticket->save();
+
+        if($ticket->save()){
+            $status = Status::find($request->status_id);
+            $user = User::find($ticket->user_id);
+
+            Mail::to($user->email)->send(new TicketStatus($user, $ticket, $status));
+        }
 
         return back()->with('success', 'Status Alterado com sucesso');
     }

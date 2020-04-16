@@ -41,7 +41,7 @@ class TicketCreate extends Mailable
             $health = 'Convênio não informado';
         }
 
-        return $this->view('emails.ticketCreate')->with([
+        return $this->view('emails.ticketCreate')->subject('Criação de chamado')->with([
             'user' => $this->user,
             'ticket' => $this->ticket,
             'health' => $health

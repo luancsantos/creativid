@@ -1,9 +1,8 @@
 <html>
     <head></head>
     <body>
-        {{ $user->name }} abriu um chamado. <br/>
+        Olá, houve um comentário em seu chamado n° {{ $ticket->id }} <br/>
         Data de abertura: {{ $ticket->created_at }} <br/>
         Descrição breve: {{ $ticket->label }} <br/>
-        Convênio: {{ $health }}
     </body>
 </html>
