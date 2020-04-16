@@ -43,7 +43,7 @@
                         <div class="col-md-8">
                             @if(isset($images))
                                 @foreach ($images as $key => $image)
-                                    <a href="{{ asset('/images/'.$ticket->id.'/' .$image) }}" download="Arquivo - {{ $image }}"><button>Download {{ ++$key }} </button></a>
+                                    <a href="{{ asset('/images/'.$ticket->id.'/' .$image) }}" download="Arquivo - {{ $image }}"><label>Download {{ ++$key }} <i class="fa fa-download"></i></label></a> |
                                 @endforeach
                             @else
                                 <span>Não há imagem</span>
@@ -58,9 +58,11 @@
                     </div>
                     <div class="form-group row mb-0">
                         <div class="col-md-8 offset-md-4">
-                            <button type="submit" class="btn btn-primary">
-                                {{ __('Salvar') }}
-                            </button>
+                            @if (Auth::user()->type_user_id == 1)
+                                <button type="submit" class="btn btn-primary" >
+                                    {{ __('Salvar') }}
+                                </button>
+                            @endif
                             <a href="/tickets" class="btn btn-primary">
                                 {{ __('Voltar') }}
                             </a>

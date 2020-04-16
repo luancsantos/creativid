@@ -91,7 +91,7 @@ class TicketsController extends Controller
          {
             $this->validate($request, [
                 'filename' => 'required',
-                'filename.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+                'filename.*' => 'max:2048'
             ]);
 
             foreach($request->file('filename') as $image)
