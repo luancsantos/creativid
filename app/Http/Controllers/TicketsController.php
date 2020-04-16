@@ -85,7 +85,7 @@ class TicketsController extends Controller
             'status_id' => 1
         ]);
 
-        Mail::to('luan.santos@creativid.com.br')->send(new TicketCreate(Auth::user(), $ticket));
+        Mail::to('suporte.pro@creativid.com.br')->send(new TicketCreate(Auth::user(), $ticket));
 
         if($request->hasfile('filename'))
          {
