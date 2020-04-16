@@ -7,7 +7,8 @@
         </div>
         <div class="panel-body">
             <div class="col-md-6">
-                <form action="">
+                <form method="POST" action="{{ route('tickets.update', $ticket->id) }}" id="{{ $ticket->id }}">
+                    @csrf
                     <div class="form-group row">
                         <label for="label" class="col-md-3 col-form-label text-md-right">{{ __('Breve Descrição') }}</label>
                         <div class="col-md-8">
@@ -29,7 +30,7 @@
                     <div class="form-group row">
                         <label for="status_id" class="col-md-3 col-form-label text-md-right">{{ __('Status') }}</label>
                         <div class="col-md-8">
-                            <select class="form-control" name="healt_insurance_id" id="healt_insurance_id" {{ Auth::user()->type_user_id == 1 ? 'required' : 'disabled'}}>
+                            <select class="form-control" name="status_id" id="status_id" {{ Auth::user()->type_user_id == 1 ? 'required' : 'disabled'}}>
                                 <option value="">Selecione</option>
                                 @foreach ($status as $key => $item)
                                     <option value="{{ $item->id }}" {{ $ticket->status_id == $item->id ? 'selected' : '' }}>{{ $item->name }}</option>
@@ -66,6 +67,11 @@
                         </div>
                     </div>
                 </form>
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
             </div>
             <div class="col-md-6">
                 <div class="form-group row">
@@ -98,11 +104,7 @@
                     </div>
                 </div>
             </div>
-                @if(session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
+
         </div>
     </div>
 @endsection

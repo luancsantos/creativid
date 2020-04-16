@@ -156,15 +156,6 @@ class TicketsController extends Controller
         }
     }
 
-    public function edit($userId)
-    {
-        $tickets = Ticket::find($userId);
-
-        if(isset($tickets->id)){
-            return view('tickets/edit')->with(['tickets' => $tickets]);
-        }
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -174,7 +165,11 @@ class TicketsController extends Controller
      */
     public function update(Request $request)
     {
-        //
+        $ticket = Ticket::find($request->id);
+        $ticket->status_id = $request->status_id;
+        $ticket->save();
+
+        return back()->with('success', 'Status Alterado com sucesso');
     }
 
     /**
