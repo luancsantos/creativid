@@ -1,6 +1,6 @@
 <nav class="navbar navbar-default navbar-fixed-top">
         <div class="brand">
-            <a href="#"><img style="width: 100px;" src="{{ asset('assets/img/logo.jpeg') }}" alt="HomeJobs Logo" class="img-responsive logo"></a>
+            <a href="{{route('home')}}"><img style="width: 100px;" src="{{ asset('assets/img/logo.jpeg') }}" alt="HomeJobs Logo" class="img-responsive logo"></a>
         </div>
         <div class="container-fluid">
             @if(Auth::user()->id == 1)
@@ -11,7 +11,7 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-left">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>XML+</span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>XML+</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{route('users.index')}}">Importar</a></li>
                         </ul>
@@ -42,15 +42,15 @@
 
                 <ul class="nav navbar-nav navbar-left">
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>Configurações</span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>Configurações</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{route('users.index')}}">Usuários</a></li>
                             <li><a href="{{route('clients.index')}}">Clientes</a></li>
-                            <li><a href="#">Tipos de Usuários</a></li>
+                            <li><a href="{{route('users-type.index')}}">Tipos de Usuários</a></li>
                             <li><a href="{{route('types.index')}}">Tipos de Chamados</a></li>
                             <li><a href="{{route('status.index')}}">Status</a></li>
                             <li><a href="{{route('departments.index')}}">Departamentos</a></li>
-                            <li><a href="#">Convênios</a></li>
+                            <li><a href="{{route('health-insurance.index')}}">Convênios</a></li>
                         </ul>
                     </li>
                 </ul>

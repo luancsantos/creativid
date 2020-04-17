@@ -25,9 +25,17 @@
                         <button type="submit" class="btn btn-primary">
                             {{ __('Salvar') }}
                         </button>
+                        <a href="/departments" class="btn btn-primary">
+                            {{ __('Voltar') }}
+                        </a>
                     </div>
                 </div>
             </form>
         </div>
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
     </div>
 @endsection

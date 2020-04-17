@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Department;
+use App\Client;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -30,25 +31,31 @@ class HomeController extends Controller
     {
         $status = Status::all();
         $types = TypeTicket::all();
-        $departments = Department::all();
-        $clientId = Auth::user()->client_id;
-        if($clientId == null){
+        $users = User::all();
+        //dd($_SERVER['SERVER_NAME']);
+        if(Auth::user()->type_user_id == 1){
+            $client = Client::all();
             $tickets = DB::table('tickets')
                                         ->whereIn('status_id', [1,3])
-                                        ->orderBy("created_at")->get();
+                                        ->orderBy("created_at","DESC")->get();
+
             return view('home')->with(['tickets' => $tickets,
                                         'status' => $status,
                                         'types' => $types,
-                                        'departments' => $departments]);
+                                        'users' => $users,
+                                        'clients' => $client]);
 
         } else {
+            $departments = Department::all();
             $tickets = DB::table('tickets')
                                         ->whereIn('status_id', [1,3])
-                                        ->where('client_id', $clientId)
-                                        ->orderBy("created_at")->get();
+                                        ->where('client_id', Auth::user()->client_id)
+                                        ->orderBy("created_at","DESC")->get();
+
             return view('home')->with(['tickets' => $tickets,
                                         'status' => $status,
                                         'types' => $types,
+                                        'users' => $users,
                                         'departments' => $departments]);
         }
 

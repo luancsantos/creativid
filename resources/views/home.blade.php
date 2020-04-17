@@ -14,9 +14,11 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Descrição</th>
+                <th>Breve Descrição</th>
+                <th>Data Abertura de Chamado</th>
                 <th>Tipo de Chamado</th>
-                <th>Departamento</th>
+                <th>Usuário</th>
+                <th>{{ Auth::user()->type_user_id == 1 ? 'Cliente' : 'Departamento'}}</th>
                 <th>Status</th>
             </tr>
         </thead>
@@ -24,20 +26,36 @@
             @foreach ($tickets as $item)
             <tr>
                 <td>{{ $item->id }}</td>
-                <td>{{ $item->label }}</td>
+                <td>
+                    <a href="{{ request()->getSchemeAndHttpHost().'/tickets/'. $item->id . '/show' }}"> {{ $item->label }}</a>
+                </td>
+                <td>
+                    {{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y H:m:s')}}
+                </td>
                 <td>
                     @foreach ($types as $type)
                         {{ $item->type_id == $type->id ? $type->name : '' }}
                     @endforeach
                 </td>
                 <td>
-                    @foreach ($departments as $department)
-                        {{ $item->department_id == $department->id ? $department->name : '' }}
+                    @foreach ($users as $user)
+                        {{ $item->user_id == $user->id ? $user->name : '' }}
                     @endforeach
                 </td>
                 <td>
+                    @if(Auth::user()->type_user_id == 1)
+                        @foreach ($clients as $client)
+                            {{ $item->client_id == $client->id ? $client->name : '' }}
+                        @endforeach
+                    @else
+                        @foreach ($departments as $department)
+                            {{ $item->department_id == $department->id ? $department->name : '' }}
+                        @endforeach
+                    @endif
+                </td>
+                <td>
                     @if ($item->status_id == 1)
-                        <span class="btn btn-danger">
+                        <span class="btn btn-primary">
                     @else
                         <span class="btn btn-warning">
                     @endif

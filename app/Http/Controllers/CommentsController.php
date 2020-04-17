@@ -3,34 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Client;
+use App\Comment;
+use App\Mail\TicketMessage;
+use App\Ticket;
+use App\User;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 
 class CommentsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $clients = Client::all();
-        return view('clients/index')->with(['clients' => $clients]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-
-        return view('clients/create');
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -39,58 +23,22 @@ class CommentsController extends Controller
      */
     public function store(Request $request)
     {
-        Client::create([
-            'name' => $request->name,
-            'cnpj' => $request->cnpj,
-            'email' => $request->email,
-            'street' => $request->street,
-            'number' => $request->number,
-            'state' => $request->state,
-            'city' => $request->city,
+        Comment::create([
+            'description' => $request->message,
+            'ticket_id' => $request->ticket_id,
+            'user_id' => $request->user_id
         ]);
-        return view('clients/index');
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($userId)
-    {
-        $user = Client::find($userId);
-        if(isset($user->id)){
-            return view('clients/edit')->with(['user' => $user]);
+        $ticket = Ticket::find($request->ticket_id);
+        if(Auth::user()->id !== $ticket->user_id) {
+            $user = User::find($ticket->user_id);
+            $user = $user->email;
+        } else {
+            $user = 'contato@creativid.com.br';
         }
-    }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, User $user)
-    {
-        //
-    }
+        Mail::to($user)->send(new TicketMessage($ticket));
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        $user = Client::find($id);
-        $user->delete();
-
-        return back()->with([
-            'type'    => 'success',
-            'message' => 'Usuário excluído com sucesso'
-        ]);
+        return back()->with('success', 'Enviado com sucesso');
     }
 }

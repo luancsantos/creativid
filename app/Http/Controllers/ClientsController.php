@@ -59,9 +59,9 @@ class ClientsController extends Controller
      */
     public function edit($userId)
     {
-        $user = Client::find($userId);
-        if(isset($user->id)){
-            return view('clients/edit')->with(['user' => $user]);
+        $client = Client::find($userId);
+        if(isset($client->id)){
+            return view('clients/edit')->with(['client' => $client]);
         }
     }
 
@@ -72,9 +72,19 @@ class ClientsController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        //
+        $client = Client::find($request->id);
+        $client->name = $request->name;
+        $client->cnpj = $request->cnpj;
+        $client->email = $request->email;
+        $client->street = $request->street;
+        $client->number = $request->number;
+        $client->state = $request->state;
+        $client->city = $request->city;
+        $client->save();
+
+        return back()->with('success', 'Alterado com sucesso');
     }
 
     /**
@@ -88,9 +98,6 @@ class ClientsController extends Controller
         $user = Client::find($id);
         $user->delete();
 
-        return back()->with([
-            'type'    => 'success',
-            'message' => 'Usuário excluído com sucesso'
-        ]);
+        return back()->with('success', 'Excluído com sucesso');
     }
 }

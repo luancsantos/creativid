@@ -48,7 +48,8 @@ class StatusTicketsController extends Controller
             'state' => $request->state,
             'city' => $request->city,
         ]);
-        return view('status/index');
+
+        return back()->with('success', 'Criado com sucesso');
     }
 
     /**
@@ -57,11 +58,11 @@ class StatusTicketsController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit($userId)
+    public function edit($status)
     {
-        $user = Status::find($userId);
-        if(isset($user->id)){
-            return view('status/edit')->with(['user' => $user]);
+        $status = Status::find($status);
+        if(isset($status->id)){
+            return view('status/edit')->with(['status' => $status]);
         }
     }
 
@@ -72,9 +73,13 @@ class StatusTicketsController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        //
+        $status = Status::find($request->id);
+        $status->name = $request->name;
+        $status->save();
+
+        return back()->with('success', 'Status alterado com sucesso');
     }
 
     /**
@@ -88,9 +93,6 @@ class StatusTicketsController extends Controller
         $user = Status::find($id);
         $user->delete();
 
-        return back()->with([
-            'type'    => 'success',
-            'message' => 'Usuário excluído com sucesso'
-        ]);
+        return back()->with('success', 'Status excluído com sucesso');
     }
 }

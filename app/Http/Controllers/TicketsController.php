@@ -4,15 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Ticket;
 use App\Department;
+use App\Client;
 use App\Status;
 use App\TypeTicket;
 use App\HealthInsurance;
+use App\Mail\TicketCreate;
+use App\Mail\TicketStatus;
 use App\UploadTicket;
+use App\User;
+use App\UserType;
 use Illuminate\Http\Request;
 use \Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class TicketsController extends Controller
 {
@@ -23,18 +29,23 @@ class TicketsController extends Controller
      */
     public function index()
     {
-        $clientId = Auth::user()->client_id;
-        if($clientId == null){
-            $tickets = Ticket::all();
+        if(Auth::user()->type_user_id == 1){
+            $tickets = Ticket::orderBy("created_at","DESC")->get();;
         } else {
-            $tickets = DB::table('tickets')->where('client_id', $clientId)->orderBy("created_at")->get();
+            $tickets = DB::table('tickets')->where('user_id', Auth::user()->id)->orderBy("created_at","DESC")->get();
         }
 
+        $status = Status::all();
         $types = TypeTicket::all();
         $departments = Department::all();
+        $users = User::all();
+        $clients = Client::all();
 
         return view('tickets/index')->with(['tickets' => $tickets,
                                             'types' => $types,
+                                            'users' => $users,
+                                            'status' => $status,
+                                            'clients' => $clients,
                                             'departments' => $departments]);
     }
 
@@ -45,14 +56,11 @@ class TicketsController extends Controller
      */
     public function create()
     {
-        $departments = Department::all();
-        $status = Status::all();
         $types = TypeTicket::all();
-        $health = HealthInsurance::all();
+
+        $health = HealthInsurance::orderBy('name', 'ASC')->get();
 
         return view('tickets/create')->with([
-                                            'departments' => $departments,
-                                            'status' => $status,
                                             'health' => $health,
                                             'types' => $types]);
     }
@@ -65,20 +73,26 @@ class TicketsController extends Controller
      */
     public function store(Request $request)
     {
+        $userType = UserType::find(Auth::user()->type_user_id);
+
         $ticket = Ticket::create([
             'label' => $request->label,
             'description' => $request->description,
+            'health_insurance_id' => $request->health_insurance_id,
             'type_id' => $request->type_id,
-            'department_id' => $request->department_id,
+            'department_id' => $userType->department_id,
             'client_id' => Auth::user()->client_id,
-            'status_id' => $request->status_id
+            'user_id' => Auth::user()->id,
+            'status_id' => 1
         ]);
+
+        Mail::to('suporte.pro@creativid.com.br')->send(new TicketCreate(Auth::user(), $ticket));
 
         if($request->hasfile('filename'))
          {
             $this->validate($request, [
                 'filename' => 'required',
-                'filename.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+                'filename.*' => 'max:2048'
             ]);
 
             foreach($request->file('filename') as $image)
@@ -92,8 +106,6 @@ class TicketsController extends Controller
             $form->ticket_id=$ticket->id;
             $form->save();
          }
-
-
 
         return back()->with('success', 'Chamado aberto com sucesso');
     }
@@ -109,36 +121,39 @@ class TicketsController extends Controller
         $ticket = Ticket::find($ticketId);
         $types = TypeTicket::find($ticket->type_id);
         $departments = Department::find($ticket->department_id);
-        $status = Status::find($ticket->status_id);
+        $status = Status::all();
+        $users = User::all();
+        $comments = DB::table('comments')->where('ticket_id', $ticketId)->orderBy('created_at','asc')->get();
+
         $images = DB::table('upload_tickets')->where('ticket_id', $ticketId)->get();
+        if(!empty($images)){
+            $list = [];
+            foreach ($images as $value) {
+                $decode = json_decode($value->image, TRUE);
 
-        foreach ($images as $value) {
-            $decode = json_decode($value->image, TRUE);
-
-            foreach($decode as $key => $img){
-
-                $list = [];
-                array_push($list,$img);
+                foreach($decode as $key => $img){
+                    array_push($list,$img);
+                }
             }
-
-
         }
 
         if(isset($ticket->id)){
-            return view('tickets/show')->with(['ticket' => $ticket,
+            if (isset($list)) {
+                return view('tickets/show')->with(['ticket' => $ticket,
                                                 'types' => $types,
+                                                'users' => $users,
                                                 'status' => $status,
                                                 'departments' => $departments,
+                                                'comments' => $comments,
                                                 'images' => $list]);
-        }
-    }
-
-    public function edit($userId)
-    {
-        $tickets = Ticket::find($userId);
-
-        if(isset($tickets->id)){
-            return view('tickets/edit')->with(['tickets' => $tickets]);
+            } else {
+                return view('tickets/show')->with(['ticket' => $ticket,
+                                                'types' => $types,
+                                                'users' => $users,
+                                                'status' => $status,
+                                                'departments' => $departments,
+                                                'comments' => $comments]);
+            }
         }
     }
 
@@ -151,7 +166,17 @@ class TicketsController extends Controller
      */
     public function update(Request $request)
     {
-        //
+        $ticket = Ticket::find($request->id);
+        $ticket->status_id = $request->status_id;
+
+        if($ticket->save()){
+            $status = Status::find($request->status_id);
+            $user = User::find($ticket->user_id);
+
+            Mail::to($user->email)->send(new TicketStatus($user, $ticket, $status));
+        }
+
+        return back()->with('success', 'Status Alterado com sucesso');
     }
 
     /**
@@ -165,9 +190,6 @@ class TicketsController extends Controller
         $ticket = Ticket::find($id);
         $ticket->delete();
 
-        return back()->with([
-            'type'    => 'success',
-            'message' => 'Usuário excluído com sucesso'
-        ]);
+        return back()->with('success', 'Excluído com sucesso');
     }
 }

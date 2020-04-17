@@ -31,18 +31,20 @@
                 <td>{{ $item->email }}</td>
                 <td>{{ $item->created_at }}</td>
                 <td>
-                    <form method="post" action="{{route('users.destroy', $item->id)}}" id="{{ $item->id }}">
-                        @csrf
-                        @method('DELETE')
-                        <a href="{{ route('users.edit', $item->id) }}"
-                                class="btn btn-primary"
-                                title="Editar">
-                            <i class="lnr lnr-pencil"></i>
-                        </a>
-                        <button type="button" class="btn btn-danger" onclick="confirmDelete('{{ $item->id }}')" title="Excluir">
-                            <i class="lnr lnr-trash"></i>
-                        </button>
-                    </form>
+                    @if ($item->id !== 1)
+                        <form method="post" action="{{route('users.destroy', $item->id)}}" id="{{ $item->id }}">
+                            @csrf
+                            @method('DELETE')
+                            <a href="{{ route('users.edit', $item->id) }}"
+                                    class="btn btn-primary"
+                                    title="Editar">
+                                <i class="lnr lnr-pencil"></i>
+                            </a>
+                            <button type="button" class="btn btn-danger" onclick="confirmDelete('{{ $item->id }}')" title="Excluir">
+                                <i class="lnr lnr-trash"></i>
+                            </button>
+                        </form>
+                    @endif
                 </td>
             </tr>
             @endforeach

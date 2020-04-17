@@ -41,7 +41,7 @@ class DepartmentsController extends Controller
         Department::create([
             'name' => $request->name,
         ]);
-        return view('departments/create');
+        return back()->with('success', 'Criado com sucesso');
     }
 
     /**
@@ -65,9 +65,13 @@ class DepartmentsController extends Controller
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request)
     {
-        //
+        $department = Department::find($request->id);
+        $department->name = $request->name;
+        $department->save();
+
+        return back()->with('success', 'Departamento alterado com sucesso');
     }
 
     /**
@@ -81,9 +85,6 @@ class DepartmentsController extends Controller
         $user = Department::find($id);
         $user->delete();
 
-        return back()->with([
-            'type'    => 'success',
-            'message' => 'Usuário excluído com sucesso'
-        ]);
+        return back()->with('success', 'Departamento excluído com sucesso');
     }
 }

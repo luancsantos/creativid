@@ -33,7 +33,7 @@
                 <div class="form-group row">
                     <label for="cnpj" class="col-md-2 col-form-label text-md-right">{{ __('Cpf | Cnpj') }}</label>
                     <div class="col-md-6">
-                        <input id="cnpj" type="cnpj" class="form-control @error('cnpj') is-invalid @enderror" name="cnpj" required autocomplete="cnpj" autofocus placeholder="Cpf | Cnpj">
+                        <input id="cnpj" type="number" class="form-control @error('cnpj') is-invalid @enderror" name="cnpj" required autocomplete="cnpj" autofocus placeholder="Cpf | Cnpj">
                         @error('cnpj')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -84,6 +84,9 @@
                         <button type="submit" class="btn btn-primary">
                             {{ __('Salvar') }}
                         </button>
+                        <a href="/clients" class="btn btn-primary">
+                            {{ __('Voltar') }}
+                        </a>
                     </div>
                 </div>
             </form>

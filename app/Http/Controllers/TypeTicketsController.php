@@ -67,7 +67,11 @@ class TypeTicketsController extends Controller
      */
     public function update(Request $request)
     {
-        //
+        $type = TypeTicket::find($request->id);
+        $type->name = $request->name;
+        $type->save();
+
+        return back()->with('success', 'Convênio alterado com sucesso');
     }
 
     /**
@@ -81,9 +85,6 @@ class TypeTicketsController extends Controller
         $user = TypeTicket::find($id);
         $user->delete();
 
-        return back()->with([
-            'type'    => 'success',
-            'message' => 'Usuário excluído com sucesso'
-        ]);
+        return back()->with('success', 'Excluído com sucesso');
     }
 }

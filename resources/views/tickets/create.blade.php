@@ -20,23 +20,12 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="description" class="col-md-2 col-form-label text-md-right">{{ __('Descrição') }}</label>
+                    <label for="health_insurance_id" class="col-md-2 col-form-label text-md-right">{{ __('Convênio') }}</label>
                     <div class="col-md-6">
-                        <textarea id="description" type="text" class="form-control @error('description') is-invalid @enderror" name="description" required autocomplete="description" autofocus placeholder="Descreva o chamado"></textarea>
-                        @error('description')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="healt_insurance_id" class="col-md-2 col-form-label text-md-right">{{ __('Convênio') }}</label>
-                    <div class="col-md-6">
-                        <select class="form-control" name="healt_insurance_id" id="healt_insurance_id" required>
+                        <select class="form-control" name="health_insurance_id" id="health_insurance_id" required>
                                 <option value="">Selecione</option>
                                 @foreach ($health as $item)
-                                    <option value="{{ $item->id }}">{{ $item->cd_health_insurance }} - {{ $item->name }}</option>
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
                         </select>
                     </div>
@@ -47,28 +36,6 @@
                         <select class="form-control" name="type_id" id="type_id" required>
                                 <option value="">Selecione</option>
                                 @foreach ($types as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="department_id" class="col-md-2 col-form-label text-md-right">{{ __('Departamento') }}</label>
-                    <div class="col-md-6">
-                        <select class="form-control" name="department_id" id="department_id" required>
-                                <option value="">Selecione</option>
-                                @foreach ($departments as $item)
-                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                @endforeach
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="status_id" class="col-md-2 col-form-label text-md-right">{{ __('Status') }}</label>
-                    <div class="col-md-6">
-                        <select class="form-control" name="status_id" id="status_id" required>
-                                <option value="">Selecione</option>
-                                @foreach ($status as $item)
                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
                         </select>
@@ -93,6 +60,18 @@
                           </div>
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label for="description" class="col-md-2 col-form-label text-md-right">{{ __('Descrição') }}</label>
+                    <div class="col-md-6">
+                        <textarea id="description" style="height: 232px;" type="text" class="form-control @error('description') is-invalid @enderror" name="description" required autocomplete="description" autofocus placeholder="Descreva o chamado"></textarea>
+                        @error('description')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
                 @if(session('success'))
                     <div class="alert alert-success">
                         {{ session('success') }}
@@ -100,7 +79,7 @@
                 @endif
                 @if (count($errors) > 0)
                 <div class="alert alert-danger">
-                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                    <strong>Whoops!</strong> Algo deu errado!!<br><br>
                     <ul>
                     @foreach ($errors->all() as $error)
                         <li>{{ $error }}</li>
@@ -113,15 +92,17 @@
                         <button type="submit" class="btn btn-primary">
                             {{ __('Salvar') }}
                         </button>
+                        <a href="/tickets" class="btn btn-primary">
+                            {{ __('Voltar') }}
+                        </a>
                     </div>
                 </div>
             </form>
         </div>
     </div>
 @endsection
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script type="text/javascript">
-
     $(document).ready(function() {
 
       $(".btn-success").click(function(){
