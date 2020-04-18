@@ -109,4 +109,12 @@ class UsersController extends Controller
             return view('users/profile')->with(['user' => $user]);
         }
     }
+
+    public function updatePassword($id, Request $request)
+    {
+        $user = User::find($id);
+        $user->password = Hash::make($request->password);
+        $user->save();
+        return back()->with('success', 'Senha alterada com sucesso');
+    }
 }

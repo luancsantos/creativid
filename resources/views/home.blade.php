@@ -15,6 +15,7 @@
             <tr>
                 <th>ID</th>
                 <th>Breve Descrição</th>
+                <th>Data Abertura de Chamado</th>
                 <th>Tipo de Chamado</th>
                 <th>Usuário</th>
                 <th>{{ Auth::user()->type_user_id == 1 ? 'Cliente' : 'Departamento'}}</th>
@@ -27,6 +28,9 @@
                 <td>{{ $item->id }}</td>
                 <td>
                     <a href="{{ request()->getSchemeAndHttpHost().'/tickets/'. $item->id . '/show' }}"> {{ $item->label }}</a>
+                </td>
+                <td>
+                    {{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y H:m:s')}}
                 </td>
                 <td>
                     @foreach ($types as $type)
@@ -51,7 +55,7 @@
                 </td>
                 <td>
                     @if ($item->status_id == 1)
-                        <span class="btn btn-danger">
+                        <span class="btn btn-primary">
                     @else
                         <span class="btn btn-warning">
                     @endif

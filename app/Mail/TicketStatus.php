@@ -37,7 +37,7 @@ class TicketStatus extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.ticketStatus')->subject('Mudança de status')->with([
+        return $this->view('emails.ticketStatus')->subject('Atualização de chamado')->with([
             'user' => $this->user,
             'ticket' => $this->ticket,
             'status' => $this->status

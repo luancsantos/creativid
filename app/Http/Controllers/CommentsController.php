@@ -34,7 +34,7 @@ class CommentsController extends Controller
             $user = User::find($ticket->user_id);
             $user = $user->email;
         } else {
-            $user = 'suporte.pro@creativid.com.br';
+            $user = 'contato@creativid.com.br';
         }
 
         Mail::to($user)->send(new TicketMessage($ticket));

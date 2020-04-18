@@ -111,9 +111,11 @@
             <tr>
                 <th>ID</th>
                 <th>Descrição</th>
+                <th>Data Abertura de Chamado</th>
                 <th>Tipo de Chamado</th>
                 <th>Usuário</th>
                 <th>Departamento</th>
+                <th>Status</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -122,6 +124,9 @@
             <tr>
                 <td>{{ $item->id }}</td>
                 <td>{{ $item->label }}</td>
+                <td>
+                    {{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y H:m:s')}}
+                </td>
                 <td>
                     @foreach ($types as $type)
                         {{ $item->type_id == $type->id ? $type->name : '' }}
@@ -136,6 +141,18 @@
                     @foreach ($departments as $department)
                         {{ $item->department_id == $department->id ? $department->name : '' }}
                     @endforeach
+                </td>
+                <td>
+                    @if ($item->status_id == 1)
+                        <span class="btn btn-danger">
+                    @else
+                        <span class="btn btn-warning">
+                    @endif
+
+                    @foreach ($status as $value)
+                        {{ $value->id == $item->status_id ? $value->name : '' }}
+                    @endforeach
+                </span>
                 </td>
                 <td>
                     <form method="post" action="{{route('tickets.destroy', $item->id)}}" id="{{ $item->id }}">

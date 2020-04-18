@@ -96,7 +96,7 @@
                             <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id }}"/>
                             @csrf
 
-                            <textarea id='message' name="message" style='height: 232px;width: 814px;margin-bottom:10px;' type='text' class='form-control'></textarea>
+                            <textarea id='message' name="message" style='height: 232px;margin-bottom:10px;' type='text' class='form-control' required></textarea>
                             <button type='submit' id='send' class='btn btn-success'>Enviar</button>
                             <button type='button' id='cancel' class='btn btn-danger'>Cancelar</button>
                         </form>
