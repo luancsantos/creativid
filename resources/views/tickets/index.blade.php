@@ -144,6 +144,8 @@
                 </td>
                 <td>
                     @if ($item->status_id == 1)
+                        <span class="btn btn-primary">
+                    @elseif ($item->status_id == 5)
                         <span class="btn btn-danger">
                     @else
                         <span class="btn btn-warning">
