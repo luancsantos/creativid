@@ -15,7 +15,6 @@
                             <input id="label" type="text" value='{{ $ticket->label }}' class="form-control"  readonly/>
                         </div>
                     </div>
-                    {{ dd($health) }}
                     <div class="form-group row">
                         <label for="type_id" class="col-md-3 col-form-label text-md-right">{{ __('Convênio') }}</label>
                         <div class="col-md-8">
