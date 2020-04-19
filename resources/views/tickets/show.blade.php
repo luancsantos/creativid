@@ -85,18 +85,22 @@
                 <div class="form-group row">
                     <label for="description" class="col-md-2 col-form-label text-md-right">{{ __('Comentários') }}</label>
                     <div class="col-md-9" id="tab-bottom-left1">
-                        <ul class="list-unstyled activity-timeline">
-                            @foreach ($comments as $item)
-                                <li>
-                                    <i class="fa fa-comment activity-icon"></i>
-                                    <p>{{ $item->description }} <span class="timestamp">Comentado por:
-                                        @foreach($users as $user)
-                                            {{ $item->user_id == $user->id ? $user->name : '' }}
-                                        @endforeach
-                                        - {{ date('d-m-Y H:i:s', strtotime($item->created_at)) }}</span></p>
-                                </li>
-                            @endforeach
-                        </ul>
+                        @foreach ($comments as $item)
+                            <div class="panel">
+                                <div class="panel-body" style="display: block;">
+                                    <i class="fa fa-comment activity-icon"></i> <p style="word-break: break-all;">{{ $item->description }} </p>
+                                </div>
+                                <div class="panel-footer">
+                                    <h5>
+                                        <span class="timestamp">Comentado por:
+                                            @foreach($users as $user)
+                                                {{ $item->user_id == $user->id ? $user->name : '' }}
+                                            @endforeach
+                                            - {{ date('d-m-Y H:i:s', strtotime($item->created_at)) }}</span>
+                                    </h5>
+                                </div>
+                            </div>
+                        @endforeach
                         <form method="POST" action="{{ route('comments.store') }}" enctype="multipart/form-data" class="form">
                             <input type="hidden" id="ticket_id" name="ticket_id" value="{{ $ticket->id }}"/>
                             <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id }}"/>

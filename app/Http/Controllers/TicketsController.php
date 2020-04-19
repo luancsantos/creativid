@@ -30,9 +30,9 @@ class TicketsController extends Controller
     public function index()
     {
         if(Auth::user()->type_user_id == 1){
-            $tickets = Ticket::orderBy("created_at","DESC")->get();;
+            $tickets = Ticket::orderBy("created_at","DESC")->paginate(12);
         } else {
-            $tickets = DB::table('tickets')->where('user_id', Auth::user()->id)->orderBy("created_at","DESC")->get();
+            $tickets = DB::table('tickets')->where('user_id', Auth::user()->id)->orderBy("created_at","DESC")->paginate(12);
         }
 
         $status = Status::all();
@@ -40,11 +40,13 @@ class TicketsController extends Controller
         $departments = Department::all();
         $users = User::all();
         $clients = Client::all();
+        $health = HealthInsurance::all();
 
         return view('tickets/index')->with(['tickets' => $tickets,
                                             'types' => $types,
                                             'users' => $users,
                                             'status' => $status,
+                                            'health' => $health,
                                             'clients' => $clients,
                                             'departments' => $departments]);
     }

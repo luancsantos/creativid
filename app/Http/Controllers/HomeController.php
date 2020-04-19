@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Department;
 use App\Client;
+use App\HealthInsurance;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,17 +33,18 @@ class HomeController extends Controller
         $status = Status::all();
         $types = TypeTicket::all();
         $users = User::all();
-        //dd($_SERVER['SERVER_NAME']);
+        $health = HealthInsurance::all();
         if(Auth::user()->type_user_id == 1){
             $client = Client::all();
             $tickets = DB::table('tickets')
-                                        ->whereIn('status_id', [1,3])
+                                        ->whereIn('status_id', [1,3,5])
                                         ->orderBy("created_at","DESC")->get();
 
             return view('home')->with(['tickets' => $tickets,
                                         'status' => $status,
                                         'types' => $types,
                                         'users' => $users,
+                                        'health' => $health,
                                         'clients' => $client]);
 
         } else {
@@ -56,6 +58,7 @@ class HomeController extends Controller
                                         'status' => $status,
                                         'types' => $types,
                                         'users' => $users,
+                                        'health' => $health,
                                         'departments' => $departments]);
         }
 

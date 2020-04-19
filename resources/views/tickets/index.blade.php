@@ -110,10 +110,10 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Descrição</th>
-                <th>Data Abertura de Chamado</th>
                 <th>Tipo de Chamado</th>
                 <th>Usuário</th>
+                <th>Data Abertura de Chamado</th>
+                <th>Convênio</th>
                 <th>Departamento</th>
                 <th>Status</th>
                 <th>Ações</th>
@@ -123,10 +123,6 @@
             @foreach ($tickets as $item)
             <tr>
                 <td>{{ $item->id }}</td>
-                <td>{{ $item->label }}</td>
-                <td>
-                    {{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y H:m:s')}}
-                </td>
                 <td>
                     @foreach ($types as $type)
                         {{ $item->type_id == $type->id ? $type->name : '' }}
@@ -135,6 +131,14 @@
                 <td>
                     @foreach ($users as $user)
                         {{ $item->user_id == $user->id ? $user->name : '' }}
+                    @endforeach
+                </td>
+                <td>
+                    {{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y H:m:s')}}
+                </td>
+                <td>
+                    @foreach ($health as $value)
+                        {{ $item->health_insurance_id == $value->id ? $value->name : '' }}
                     @endforeach
                 </td>
                 <td>
@@ -174,6 +178,7 @@
             @endforeach
         </tbody>
     </table>
+    <?php echo $tickets->render(); ?>
     @if(session('success'))
         <div class="alert alert-success alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
