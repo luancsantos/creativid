@@ -3,7 +3,7 @@
             <a href="{{route('home')}}"><img style="width: 100px;" src="{{ asset('assets/img/logo.jpeg') }}" alt="HomeJobs Logo" class="img-responsive logo"></a>
         </div>
         <div class="container-fluid">
-            @if(Auth::user()->id == 1)
+            @if(Auth::user()->type_user_id == 1)
                 <ul class="nav navbar-nav navbar-left">
                     <li class="dropdown">
                         <a href="{{route('home')}}"><span>Dashboard</span></a>
