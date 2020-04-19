@@ -121,6 +121,7 @@ class TicketsController extends Controller
         $ticket = Ticket::find($ticketId);
         $types = TypeTicket::find($ticket->type_id);
         $departments = Department::find($ticket->department_id);
+        $health = HealthInsurance::find($ticket->health_insurance_id)->get();
         $status = Status::all();
         $users = User::all();
         $comments = DB::table('comments')->where('ticket_id', $ticketId)->orderBy('created_at','asc')->get();
@@ -145,12 +146,14 @@ class TicketsController extends Controller
                                                 'status' => $status,
                                                 'departments' => $departments,
                                                 'comments' => $comments,
+                                                'health' =>$health,
                                                 'images' => $list]);
             } else {
                 return view('tickets/show')->with(['ticket' => $ticket,
                                                 'types' => $types,
                                                 'users' => $users,
                                                 'status' => $status,
+                                                'health' => $health,
                                                 'departments' => $departments,
                                                 'comments' => $comments]);
             }
