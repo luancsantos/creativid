@@ -121,7 +121,7 @@ class TicketsController extends Controller
         $ticket = Ticket::find($ticketId);
         $types = TypeTicket::find($ticket->type_id);
         $departments = Department::find($ticket->department_id);
-        $health = HealthInsurance::find($ticket->health_insurance_id)->get();
+        $health = HealthInsurance::find($ticket->health_insurance_id);
         $status = Status::all();
         $users = User::all();
         $comments = DB::table('comments')->where('ticket_id', $ticketId)->orderBy('created_at','asc')->get();
