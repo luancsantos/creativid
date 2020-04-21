@@ -147,7 +147,7 @@
                     @endforeach
                 </td>
                 <td>
-                    @if ($item->status_id == 1)
+                    @if ($item->status_id == 1 or $item->status_id == 2)
                         <span class="btn btn-primary">
                     @elseif ($item->status_id == 5)
                         <span class="btn btn-danger">
