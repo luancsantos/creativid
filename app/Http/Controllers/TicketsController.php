@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Ticket;
 use App\Department;
 use App\Client;
+use App\Comment;
 use App\Status;
 use App\TypeTicket;
 use App\HealthInsurance;
@@ -192,9 +193,15 @@ class TicketsController extends Controller
      */
     public function destroy($id)
     {
-        $ticket = Ticket::find($id);
-        $ticket->delete();
+        $comments = Comment::where('ticket_id',$id)->get();
 
-        return back()->with('success', 'Excluído com sucesso');
+        if(count($comments) == 0){
+            $ticket = Ticket::find($id);
+            $ticket->delete();
+
+            return back()->with('success', 'Excluído com sucesso');
+        }
+
+        return back()->with('success', 'Chamado não pode ser excluído!');
     }
 }
