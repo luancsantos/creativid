@@ -202,6 +202,6 @@ class TicketsController extends Controller
             return back()->with('success', 'Excluído com sucesso');
         }
 
-        return back()->with('success', 'Chamado não pode ser excluído!');
+        return back()->with('alert', 'Chamado não pode ser excluído!');
     }
 }

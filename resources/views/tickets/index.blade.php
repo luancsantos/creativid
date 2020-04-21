@@ -185,6 +185,12 @@
             <i class="fa fa-check-circle"></i> {{ session('success') }}
         </div>
     @endif
+    @if(session('alert'))
+        <div class="alert alert-danger alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <i class="fa fa-times-circle"></i> {{ session('alert') }}
+        </div>
+    @endif
 </div>
 @endsection
 <script language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
