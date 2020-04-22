@@ -37,6 +37,9 @@
                 <ul class="nav navbar-nav navbar-left">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span>Empréstimos</span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{route('users.index')}}">Importar Items</a></li>
+                        </ul>
                     </li>
                 </ul>
 

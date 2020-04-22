@@ -83,3 +83,6 @@ Route::post('/health-insurance/store', 'HealthInsuranceController@store')->middl
 Route::get('/health-insurance/{id}/edit', 'HealthInsuranceController@edit')->middleware('auth')->name('health-insurance.edit');
 Route::post('/health-insurance/{id}/update', 'HealthInsuranceController@update')->middleware('auth')->name('health-insurance.update');
 Route::delete('/health-insurance/{id}/destroy', 'HealthInsuranceController@destroy')->middleware('auth')->name('health-insurance.destroy');
+
+
+/*import items */
