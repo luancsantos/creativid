@@ -86,3 +86,6 @@ Route::delete('/health-insurance/{id}/destroy', 'HealthInsuranceController@destr
 
 
 /*import items */
+Route::post('/import', 'ItemsController@import')->name('import');
+Route::get('/items', 'ItemsController@index')->name('items.index');
+Route::get('export', 'MyController@export')->name('export');
